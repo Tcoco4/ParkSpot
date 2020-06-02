@@ -33,9 +33,16 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item lines="none" routerLink="/events">
+        <ion-item lines="none" button (click)="displayEvents()">
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
           <ion-label>Events</ion-label>
+          <!--<ion-fab  horizontal="start"  id="tutorial" >
+            <ion-fab-button >Restaurant</ion-fab-button>
+            <ion-fab-button >Drive-in</ion-fab-button>
+            <ion-fab-button >Gas Station</ion-fab-button>
+            <ion-fab-button >Car Wash</ion-fab-button>
+            <ion-fab-button >ATMs</ion-fab-button>
+        </ion-fab>-->
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
@@ -47,7 +54,6 @@
       </ion-list>
     </ion-content>
   </ion-menu>
-
   <!--<ion-menu side="start" menuId="m2">
     <ion-header>
       <ion-toolbar>

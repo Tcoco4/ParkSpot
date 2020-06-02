@@ -9,6 +9,7 @@ import { from } from 'rxjs';
   styleUrls: ['./map-modal.component.scss'],
 })
 export class MapModalComponent implements OnInit, AfterViewInit {
+  private isHidden: boolean = true;
   @ViewChild('map')  mapElementRef: ElementRef;
   constructor(private modalCtrl: ModalController, private renderer: Renderer2) { }
 
@@ -20,7 +21,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
     .then(googleMaps =>{
       const mapEl =  this.mapElementRef.nativeElement;
       const map = new googleMaps.Map(mapEl, {
-        center: {lat:-25.746020 , lng:28.187120},
+        center: {lat:-25.7516134292926 , lng:28.233034014701847},
         zoom: 16
       });
 //////////////////// CODE TO DETECT LIVE LOCATION
@@ -31,6 +32,7 @@ if (navigator.geolocation) {
       lng: position.coords.longitude
     };
 
+   
     const infoWindow = new googleMaps.InfoWindow;
     infoWindow.setPosition(pos);
     infoWindow.setContent('You are here');
@@ -42,10 +44,10 @@ if (navigator.geolocation) {
       map: map,
       //title: "Here you are",
     }
-  
+    console.log(map.getCenter());
     var myMarker = new googleMaps.Marker(myMarkerOptions);
   }, function() {
-    //handleLocationError(true, infoWindow, map.getCenter());
+    //`handleLocationError(true, infoWindow, map.getCenter());
   });
 }/* else {
   // Browser doesn't support Geolocation
@@ -68,9 +70,9 @@ if (navigator.geolocation) {
 
   }
 
-  onCancel(){
+  /*onCancel(){
     this.modalCtrl.dismiss();
-  }
+  }*/
   private getGoogleMaps(): Promise<any>{ // will always return a promise that resolves the data to a map
     const win = window as any;
     const googleModule = win.google; //refers to a not set varable. will be set after importing JS sdk
@@ -94,5 +96,31 @@ if (navigator.geolocation) {
         }
       }
     })
+  }
+
+  events(){
+    if(this.isHidden === true){
+     
+      this.isHidden = false;
+      document.getElementById("events").hidden = false;
+      //console.log('Value is  '+ document.getElementById("tutorial").hidden.valueOf())
+
+    }else if(this.isHidden === false){
+      this.isHidden = true;
+      document.getElementById("events").hidden = true;
+
+    }
+  }
+  restaurant(){
+    console.log('Restaurants');
+  }
+  fastFood(){
+    console.log('FastFood');
+  }
+  carWash(){
+    console.log('Car Wash');
+  }
+  atms(){
+    console.log('ATMS');
   }
 }

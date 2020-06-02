@@ -12,6 +12,12 @@
 
 <ion-content>
   <div class="map" #map>
-
   </div>
+  <ion-fab hidden="true" vertical="bottom" horizontal="start"  id="events" side="end" >
+    <ion-fab-button (click)="restaurant()" ><ion-icon name="restaurant-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="fastFood()"> <ion-icon name="fast-food-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="carWash()"><ion-icon name="car-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="atms()"><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
+</ion-fab>
 </ion-content>
+
