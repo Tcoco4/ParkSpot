@@ -149,78 +149,101 @@ createMarker(place, holdThis){
        holdThisThis.infoWindow.open(holdThisThis.map,this);
     });
 }
-  restaurant(){
-      var position =this.map;
-      var request, pos, service,bounds;
-      request = {
-      location: {lat:-25.7516134292926 , lng:28.233034014701847},
-      radius: 5000,
-      types: ['restaurant','bakery','cafe']
-      }
-      var localMap =this.map;
-      var thisObj=this;
-      google.maps.event.addListener(localMap, 'bounds_changed', function() {
-        bounds = localMap.getBounds();//'bounds_changed';;
+  restaurant()
+  {
+      var hhhe =this.map;
+      var eeee=this;
+      var request,service;
+      
+      navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        request = {
+        location: pos,
+        radius: 1000,
+        types: ['restaurant','bakery','cafe']
+        }
+        var localMap =hhhe;
+        var thisObj=eeee;
         service = new google.maps.places.PlacesService(localMap);
         service.nearbySearch(request, (results, status) => {
         thisObj.callback(results, status, thisObj);
-        });
+          });
       });
-
   }
-  fastFood(){
-      var position =this.map;
-      var request, pos, service,bounds;
+  fastFood()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
       request = {
-      location: {lat:-25.7516134292926 , lng:28.233034014701847},
-      radius: 8047,
+      location: pos,
+      radius: 1000,
       types: ['fast-food']
       }
-      var localMap =this.map;
-      var thisObj=this;
-      google.maps.event.addListener(localMap, 'bounds_changed', function() {
-        bounds = localMap.getBounds();//'bounds_changed';;
-        service = new google.maps.places.PlacesService(localMap);
-        service.nearbySearch(request, (results, status) => {
-        thisObj.callback(results, status, thisObj);
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
         });
-      });
-
+    });
   }
-  carWash(){
-      var position =this.map;
-      var request, pos, service,bounds;
+  carWash()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
       request = {
-      location: {lat:-25.7516134292926 , lng:28.233034014701847},
-      radius: 8047,
+      location: pos,
+      radius: 1000,
       types: ['car-wash']
       }
-      var localMap =this.map;
-      var thisObj=this;
-      google.maps.event.addListener(localMap, 'bounds_changed', function() {
-        bounds = localMap.getBounds();//'bounds_changed';;
-        service = new google.maps.places.PlacesService(localMap);
-        service.nearbySearch(request, (results, status) => {
-        thisObj.callback(results, status, thisObj);
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
         });
-      });
+    });
   }
-  atms(){
-      var position =this.map;
-      var request, pos, service,bounds;
+  atms()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
       request = {
-      location: {lat:-25.7516134292926 , lng:28.233034014701847},
-      radius: 8047,
+      location: pos,
+      radius: 1000,
       types: ['atm']
       }
-      var localMap =this.map;
-      var thisObj=this;
-      google.maps.event.addListener(localMap, 'bounds_changed', function() {
-        bounds = localMap.getBounds();//'bounds_changed';;
-        service = new google.maps.places.PlacesService(localMap);
-        service.nearbySearch(request, (results, status) => {
-        thisObj.callback(results, status, thisObj);
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
         });
-      });
+    });
+
   }
 }
