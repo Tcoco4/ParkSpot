@@ -9,7 +9,7 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle menu="m1">
-        <ion-item lines="none">
+        <ion-item lines="none" button (click)="createLandmark()">
           <ion-icon name="pin" slot="start"></ion-icon>
           <ion-label>Create Landmark</ion-label>
         </ion-item>
@@ -34,6 +34,7 @@
       </ion-menu-toggle>
       <ion-menu-toggle>
         <ion-item lines="none" button (click)="displayEvents()">
+       <!-- <ion-item lines="none" routerLink="/events">-->
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
           <ion-label>Events</ion-label>
           <!--<ion-fab  horizontal="start"  id="tutorial" >

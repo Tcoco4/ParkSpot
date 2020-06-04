@@ -30,5 +30,8 @@ export class AppComponent {
   displayEvents(){
     this.mapModal.events();
 }
+createLandmark(){
+  this.mapModal.landmark();
+}
 
 }
