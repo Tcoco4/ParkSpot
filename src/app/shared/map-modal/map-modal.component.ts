@@ -116,7 +116,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     })
   }
 
-  landmark(){
+  landmark()
+  {
     var localMap= this.map;
     console.log("the MAP: "+this.map)
     var pos, myMarker, myMarkerOptions;
@@ -139,7 +140,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     }
   }
 
-  search(){ 
+  search()
+  { 
     var nyika =this.map;
     var thisObi=this;
     var pos,pos2;
@@ -180,7 +182,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
             directionsDisplay.setDirections(result);
         }
       })
-    }
+  }
 
   events(){
     if(this.isHidden === true){
@@ -192,8 +194,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
     }
   }
-
-
   callback(results,status, holdThis){    
     var placeLoc, marker;
     if(status == google.maps.places.PlacesServiceStatus.OK){
@@ -201,21 +201,20 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
               holdThis.createMarker(results[i], holdThis);
           }
       }
-}
-
-createMarker(place, holdThis){
-  var holdThisThis=holdThis;
-   var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-        map:holdThis.map,
-        position: placeLoc
-    });
-  
-    google.maps.event.addListener(marker, 'click', function(){
-      holdThisThis.infoWindow.setContent(place.name);
-       holdThisThis.infoWindow.open(holdThisThis.map,this);
-    });
-}
+  }
+  createMarker(place, holdThis){
+    var holdThisThis=holdThis;
+    var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+          map:holdThis.map,
+          position: placeLoc
+      });
+    
+      google.maps.event.addListener(marker, 'click', function(){
+        holdThisThis.infoWindow.setContent(place.name);
+        holdThisThis.infoWindow.open(holdThisThis.map,this);
+      });
+  }
   restaurant()
   {
       var hhhe =this.map;
