@@ -3,8 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
 import { google } from 'google-maps';
-import { map } from 'rxjs/operators';
-import { ConstantPool } from '@angular/compiler';
+import { map, combineAll } from 'rxjs/operators';
+import { ConstantPool, ThrowStmt } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-map-modal',
@@ -19,13 +20,15 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public holdThis;
   public globalMap;
   public infoWindow;
+  public origin;
+  public destination;
   @ViewChild('map')  mapElementRef: ElementRef;
 
-  constructor(private modalCtrl: ModalController, private renderer: Renderer2) {
+  constructor(private modalCtrl: ModalController, private renderer: Renderer2, private http: HttpClient) {
     this.holdThis=this;
   }
   ngOnInit() {
- 
+      
   }
   //initialising Google maps
   ngAfterViewInit(){
@@ -53,6 +56,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     infoWin.setPosition(pos);
     infoWin.setContent('You are here');
     infoWin.open(map2);
+    
     map2.setCenter(pos);
     var myMarkerOptions = {
       position: pos,
@@ -110,11 +114,74 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
       }
     })
-    //this.holdThis=this;
   }
+
   landmark(){
-    
+    var localMap= this.map;
+    console.log("the MAP: "+this.map)
+    var pos, myMarker, myMarkerOptions;
+    if (navigator.geolocation) {
+      
+        navigator.geolocation.getCurrentPosition(function(position) {
+          pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+        });
+      
+      myMarkerOptions = {
+        position: pos,
+        map: localMap,    //Issue is here, no access to current Map
+        title: "You Parked Here",
+      }
+      console.log("map "+myMarkerOptions.map);
+      myMarker = new google.maps.Marker(myMarkerOptions);
+    }
   }
+
+  search(){ 
+    var nyika =this.map;
+    var thisObi=this;
+    var pos,pos2;
+    
+      if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(position) {
+           pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        //Add logic to use a random generator that randomly finds a parking spot
+        //or not. When it does, it should assign a destination location
+        pos2 = {
+          lat: -25.756020,
+          lng:  28.239170
+        }
+        thisObi.destination=pos2;
+        thisObi.origin=pos;
+        thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
+      });
+    } 
+  }
+
+   calculateAndRenderDirections(origin, destination){
+      var nyika =this.map;
+      var thisObi=this;
+      var directionsService = new google.maps.DirectionsService(),
+          directionsDisplay = new google.maps.DirectionsRenderer(),
+          request = 
+          { 
+            origin: origin,   
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING
+          }
+        directionsDisplay.setMap(nyika);
+        directionsService.route(request, (result, status) =>{
+        if(status == 'OK'){
+            directionsDisplay.setDirections(result);
+        }
+      })
+    }
+
   events(){
     if(this.isHidden === true){
       this.isHidden = false;
