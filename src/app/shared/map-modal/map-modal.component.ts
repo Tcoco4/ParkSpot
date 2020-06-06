@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
 import { google } from 'google-maps';
@@ -24,12 +24,17 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public destination;
   @ViewChild('map')  mapElementRef: ElementRef;
 
-  constructor(private modalCtrl: ModalController, private renderer: Renderer2, private http: HttpClient) {
-    this.holdThis=this;
-  }
-  ngOnInit() {
-      
-  }
+  constructor(
+    private modalCtrl: ModalController, 
+    private renderer: Renderer2, 
+    private http: HttpClient,
+    private alertCtrl: AlertController 
+    )
+    
+    {
+     this.holdThis=this;
+    }
+  ngOnInit() {}
   //initialising Google maps
   ngAfterViewInit(){
  
@@ -42,7 +47,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       }); 
 
   //////////////////// CODE TO DETECT LIVE LOCATION
-
   var map2 =this.map;
   this.infoWindow = new googleMaps.InfoWindow();
   var infoWin = this.infoWindow;
@@ -160,7 +164,60 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
         thisObi.destination=pos2;
         thisObi.origin=pos;
-        thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
+        
+        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49; 
+        console.log("randNumwww: "+ranNum); 
+        if(ranNum % 2=== 0 )    //Even number
+        {
+          setTimeout(
+            () => { 
+              thisObi.alertCtrl.create({
+                header: 'Parking Space Found!',
+                message: 'Select Navigate to display route or Cancel to Cancel',
+                buttons: [
+                  {
+                    text: 'Navigate ',
+                    handler: () =>{
+                      thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
+                    }
+                  },
+                  {
+                    text: 'Cancel',
+                    role: 'cancel'
+                  }
+              ]
+            }).then(alertEl =>{
+                alertEl.present();
+            }); 
+            }, 3000
+          );
+
+        }else{
+            setTimeout(
+              () => { 
+                  thisObi.alertCtrl.create({
+                  header: 'No Parking Space Found!',
+                  message: 'Try another Parking lot or Search again',
+                  buttons: 
+                  [
+                      {
+                        text: 'Search ',
+                        handler: () =>{
+                        thisObi.search();
+                      }
+                      },
+                      {
+                        text: 'Cancel',
+                        role: 'cancel'
+                      }
+                  ]
+                }).then(alertEl =>{
+                  alertEl.present();
+                });
+              },
+              3000
+            );
+        }
       });
     } 
   }
