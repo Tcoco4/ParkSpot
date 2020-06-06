@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
 import { google } from 'google-maps';
@@ -24,12 +24,18 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public destination;
   @ViewChild('map')  mapElementRef: ElementRef;
 
-  constructor(private modalCtrl: ModalController, private renderer: Renderer2, private http: HttpClient) {
-    this.holdThis=this;
-  }
-  ngOnInit() {
-      
-  }
+  constructor(
+    private modalCtrl: ModalController, 
+    private renderer: Renderer2, 
+    private http: HttpClient,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController 
+    )
+    
+    {
+     this.holdThis=this;
+    }
+  ngOnInit() {}
   //initialising Google maps
   ngAfterViewInit(){
  
@@ -42,7 +48,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       }); 
 
   //////////////////// CODE TO DETECT LIVE LOCATION
-
   var map2 =this.map;
   this.infoWindow = new googleMaps.InfoWindow();
   var infoWin = this.infoWindow;
@@ -116,7 +121,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     })
   }
 
-  landmark(){
+  landmark()
+  {
     var localMap= this.map;
     console.log("the MAP: "+this.map)
     var pos, myMarker, myMarkerOptions;
@@ -139,10 +145,12 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     }
   }
 
-  search(){ 
+  search()
+  { 
     var nyika =this.map;
     var thisObi=this;
     var pos,pos2;
+    var isLoading = false;
     
       if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -156,9 +164,71 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           lat: -25.756020,
           lng:  28.239170
         }
-        thisObi.destination=pos2;
         thisObi.origin=pos;
-        thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
+        thisObi.destination=pos2;
+            
+        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49; 
+        console.log("randNumwww: "+ranNum); 
+        
+        thisObi.loadingCtrl.create({keyboardClose: true,message: 'Searching..'})
+        .then(loadingEl =>{
+          loadingEl.present();
+          if(ranNum % 2=== 0 )    
+          {
+            setTimeout(
+              () => { 
+                  //this.isLoading= false;
+                  loadingEl.dismiss();
+                  thisObi.alertCtrl.create({
+                  header: 'Parking Space Found!',
+                  message: 'Select Navigate to display route or Cancel to Cancel',
+                  buttons: [
+                    {
+                      text: 'Navigate ',
+                      handler: () =>{
+                        thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
+                      }
+                    },
+                    {
+                      text: 'Cancel',
+                      role: 'cancel'
+                    }
+                ]
+              }).then(alertEl =>{
+                  alertEl.present();
+              }); 
+              }, 3000
+            );
+  
+          }else{
+              setTimeout(
+                () => { 
+                    loadingEl.dismiss();
+                    thisObi.alertCtrl.create({
+                    header: 'No Parking Space Found!',
+                    message: 'Try another Parking lot or Search again',
+                    buttons: 
+                    [
+                        {
+                          text: 'Search ',
+                          handler: () =>{
+                          thisObi.search();
+                          }
+                        },
+                        {
+                          text: 'Cancel',
+                          role: 'cancel'
+                        }
+                    ]
+                  }).then(alertEl =>{
+                    alertEl.present();
+                });
+                },
+                3000
+              );
+          }
+        });
+
       });
     } 
   }
@@ -180,7 +250,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
             directionsDisplay.setDirections(result);
         }
       })
-    }
+  }
 
   events(){
     if(this.isHidden === true){
@@ -192,8 +262,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
     }
   }
-
-
   callback(results,status, holdThis){    
     var placeLoc, marker;
     if(status == google.maps.places.PlacesServiceStatus.OK){
@@ -201,21 +269,20 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
               holdThis.createMarker(results[i], holdThis);
           }
       }
-}
-
-createMarker(place, holdThis){
-  var holdThisThis=holdThis;
-   var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-        map:holdThis.map,
-        position: placeLoc
-    });
-  
-    google.maps.event.addListener(marker, 'click', function(){
-      holdThisThis.infoWindow.setContent(place.name);
-       holdThisThis.infoWindow.open(holdThisThis.map,this);
-    });
-}
+  }
+  createMarker(place, holdThis){
+    var holdThisThis=holdThis;
+    var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+          map:holdThis.map,
+          position: placeLoc
+      });
+    
+      google.maps.event.addListener(marker, 'click', function(){
+        holdThisThis.infoWindow.setContent(place.name);
+        holdThisThis.infoWindow.open(holdThisThis.map,this);
+      });
+  }
   restaurant()
   {
       var hhhe =this.map;
