@@ -17,11 +17,15 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public google: google;
   public mapElem:any;
   public map;
+  public mappe;
   public holdThis;
   public globalMap;
   public infoWindow;
   public origin;
   public destination;
+  public createLandmark =false;
+  public  myMarker;
+  public  myMarkerOptions;
   @ViewChild('map')  mapElementRef: ElementRef;
 
   constructor(
@@ -49,6 +53,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   //////////////////// CODE TO DETECT LIVE LOCATION
   var map2 =this.map;
+  var theThis=this;
   this.infoWindow = new googleMaps.InfoWindow();
   var infoWin = this.infoWindow;
 
@@ -63,12 +68,16 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     infoWin.open(map2);
     
     map2.setCenter(pos);
-    var myMarkerOptions = {
+    theThis.myMarkerOptions = {
       position: pos,
       map: map2,
       //title: "Here you are",
     }
-    var myMarker = new googleMaps.Marker(myMarkerOptions);
+    //theThis.myMarker = new googleMaps.Marker(theThis.myMarkerOptions);
+
+    if(theThis.createLandmark){
+      console.log("Paaa: "+map2);
+    }
   }, function() {
   });
   }
@@ -83,8 +92,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       lat: event.latLng.lat(), 
       lng: event.latLng.lng()
     };
-   //this.modalCtrl.dismiss(selectedCoords);
-   // console.log("newLocation: "+selectedCoords.lat +" "+selectedCoords.lng);
    this.globalMap = map2;
    this.holdThis=this;
   });
@@ -123,10 +130,20 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   landmark()
   {
-    var localMap= this.map;
-    console.log("the MAP: "+this.map)
+    console.log("Landmark Created!");
+   /*var hhhe =this.map;
+   var meppi=hhhe;
+    
     var pos, myMarker, myMarkerOptions;
-    if (navigator.geolocation) {
+      myMarkerOptions = {
+      position: desti,
+      map: hhhe,    //Issue is here, no access to current Map
+      title: "You Parked Here",
+    }
+    myMarker = new google.maps.Marker(myMarkerOptions);
+    */
+    
+    /*if (navigator.geolocation) {
       
         navigator.geolocation.getCurrentPosition(function(position) {
           pos = {
@@ -134,22 +151,20 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
             lng: position.coords.longitude
           };
         });
-      
+
       myMarkerOptions = {
-        position: pos,
-        map: localMap,    //Issue is here, no access to current Map
-        title: "You Parked Here",
-      }
-      console.log("map "+myMarkerOptions.map);
-      myMarker = new google.maps.Marker(myMarkerOptions);
+      position: desti,
+      map: hhhe,    //Issue is here, no access to current Map
+      title: "You Parked Here",
     }
+    myMarker = new google.maps.Marker(myMarkerOptions);
+    }*/
   }
 
   search()
   { 
     var addition:string|number;
     var start:string|number;
-    var nyika =this.map;
     var thisObi=this;
     var pos,pos2;
     var isLoading = false;
@@ -160,11 +175,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        //Add logic to use a random generator that randomly finds a parking spot
-        //or not. When it does, it should assign a destination location
-        //lng:  28.2_24850  
-        //lng: 28.239170
-
         var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
         start =28.2;
         addition=locaNum; 
@@ -175,6 +185,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
         thisObi.origin=pos;
         thisObi.destination=pos2;
+        console.log("We parking there");
+       // thisObi.landmark(thisObi.destination);
             
         var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49;         
         thisObi.loadingCtrl.create({keyboardClose: true,message: 'Searching..'})
@@ -242,6 +254,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
    calculateAndRenderDirections(origin, destination){
       var nyika =this.map;
+      console.log("Possible how "+nyika);
       var thisObi=this;
       var directionsService = new google.maps.DirectionsService(),
           directionsDisplay = new google.maps.DirectionsRenderer(),
@@ -293,6 +306,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   restaurant()
   {
       var hhhe =this.map;
+      console.log("meeep +"+hhhe);
       var eeee=this;
       var request,service;
       
@@ -307,6 +321,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         types: ['restaurant','bakery','cafe']
         }
         var localMap =hhhe;
+
+        console.log("lc "+localMap);
         var thisObj=eeee;
         service = new google.maps.places.PlacesService(localMap);
         service.nearbySearch(request, (results, status) => {
