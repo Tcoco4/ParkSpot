@@ -147,6 +147,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   search()
   { 
+    var addition:string|number;
+    var start:string|number;
     var nyika =this.map;
     var thisObi=this;
     var pos,pos2;
@@ -154,22 +156,27 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     
       if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position) {
-           pos = {
+          pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
         //Add logic to use a random generator that randomly finds a parking spot
         //or not. When it does, it should assign a destination location
+        //lng:  28.2_24850  
+        //lng: 28.239170
+
+        var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+        start =28.2;
+        addition=locaNum; 
+        var res:number = start+addition;
         pos2 = {
           lat: -25.756020,
-          lng:  28.239170
+          lng:  parseFloat(start+`${addition}`)
         }
         thisObi.origin=pos;
         thisObi.destination=pos2;
             
-        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49; 
-        console.log("randNumwww: "+ranNum); 
-        
+        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49;         
         thisObi.loadingCtrl.create({keyboardClose: true,message: 'Searching..'})
         .then(loadingEl =>{
           loadingEl.present();
