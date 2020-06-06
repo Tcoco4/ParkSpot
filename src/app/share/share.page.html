@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/start"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Share</ion-title>
+  </ion-toolbar>
+</ion-header>
+ <!--<img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">-->
+<ion-content>
+<ion-grid>
+      <ion-row>
+        <ion-col>
+          <a href="mailto:?subject=My current Location&amp;body=I am here http://www.website.com." style="text-decoration: none;">
+            <ion-item lines="none" >
+              <ion-icon name="location-outline" slot="start"></ion-icon>
+              <ion-label>Share location</ion-label>
+            </ion-item>
+            </a>   
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <a href="mailto:?subject=My Landmark Location&amp;body=Here is my landmark location http://www.website.com." style="text-decoration: none;">
+            <ion-item lines="none" >
+              <ion-icon name="pin-outline" slot="start"></ion-icon>
+              <ion-label>Share Landmark</ion-label>
+            </ion-item>
+            </a>   
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <a href="mailto:?subject=Event Location&amp;body=Come to this event location http://www.website.com." style="text-decoration: none;">
+            <ion-item lines="none" >
+              <ion-icon name="aperture-outline" slot="start"></ion-icon>
+              <ion-label>Share Event location</ion-label>
+            </ion-item>
+            </a>   
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
+</ion-content>
