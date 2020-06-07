@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  googleMapsAPIKey: 'AIzaSyDlyNg14FO3-LrDrstaxNnyoVqOFS4aen0'
+  googleMapsAPIKey: 'AIzaSyCbozN3EcVCMoHQb4jeKKhAcgGMoQUEFRY'
 };
 /*
  * For easier debugging in development mode, you can import the following file

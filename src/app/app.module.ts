@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MapModalComponent } from './shared/map-modal/map-modal.component';
 
 @NgModule({
   declarations: [AppComponent], //i can include my mapComponent since will be using it in the main
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    MapModalComponent
   ],
   bootstrap: [AppComponent]
 })
