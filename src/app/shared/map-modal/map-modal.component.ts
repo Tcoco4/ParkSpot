@@ -26,6 +26,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public createLandmark =false;
   public  myMarker;
   public  myMarkerOptions;
+  public markers =[];
+  public butt =-1;
   @ViewChild('map')  mapElementRef: ElementRef;
 
   constructor(
@@ -256,6 +258,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       var nyika =this.map;
       console.log("Possible how "+nyika);
       var thisObi=this;
+      console.log("googe "+google);
       var directionsService = new google.maps.DirectionsService(),
           directionsDisplay = new google.maps.DirectionsRenderer(),
           request = 
@@ -282,6 +285,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
     }
   }
+
   callback(results,status, holdThis){    
     var placeLoc, marker;
     if(status == google.maps.places.PlacesServiceStatus.OK){
@@ -290,6 +294,16 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           }
       }
   }
+  clearArray(markers){
+    var thisObj=this;
+    thisObj.butt=-1;
+
+    for(var m in markers){
+        console.log("Clearing markers array");
+        thisObj.markers[m].setMap(null);
+    }
+    thisObj.markers = [];
+}
   createMarker(place, holdThis){
     var holdThisThis=holdThis;
     var placeLoc = place.geometry.location;
@@ -302,6 +316,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         holdThisThis.infoWindow.setContent(place.name);
         holdThisThis.infoWindow.open(holdThisThis.map,this);
       });
+      holdThisThis.markers.push(marker);
   }
   restaurant()
   {
@@ -309,50 +324,32 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       console.log("meeep +"+hhhe);
       var eeee=this;
       var request,service;
-      
-      navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-        request = {
-        location: pos,
-        radius: 1000,
-        types: ['restaurant','bakery','cafe']
-        }
-        var localMap =hhhe;
 
-        console.log("lc "+localMap);
+      if(eeee.butt != 1){
+          eeee.butt =1;
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          request = {
+          location: pos,
+          radius: 1000,
+          types: ['restaurant']
+          }
+          var localMap =hhhe;
+  
+        var localMap =hhhe;
         var thisObj=eeee;
         service = new google.maps.places.PlacesService(localMap);
         service.nearbySearch(request, (results, status) => {
         thisObj.callback(results, status, thisObj);
           });
       });
-  }
-  fastFood()
-  {
-    var hhhe =this.map;
-    var eeee=this;
-    var request,service;
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
       }
-      request = {
-      location: pos,
-      radius: 1000,
-      types: ['fast-food']
+      else{
+        eeee.clearArray(eeee.markers);
       }
-      var localMap =hhhe;
-      var thisObj=eeee;
-      service = new google.maps.places.PlacesService(localMap);
-      service.nearbySearch(request, (results, status) => {
-      thisObj.callback(results, status, thisObj);
-        });
-    });
   }
   carWash()
   {
@@ -360,7 +357,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     var eeee=this;
     var request,service;
     
-    navigator.geolocation.getCurrentPosition(function(position) {
+    if(eeee.butt != 1){
+      eeee.butt = 1;      
+      navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -368,7 +367,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       request = {
       location: pos,
       radius: 1000,
-      types: ['car-wash']
+      types: ['car_wash']
       }
       var localMap =hhhe;
       var thisObj=eeee;
@@ -377,6 +376,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       thisObj.callback(results, status, thisObj);
         });
     });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
   }
   atms()
   {
@@ -384,7 +386,38 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     var eeee=this;
     var request,service;
     
-    navigator.geolocation.getCurrentPosition(function(position) {
+    if(eeee.butt != 1){
+        eeee.butt = 1;
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        request = {
+        location: pos,
+        radius: 1000,
+        types: ['atm']
+        }
+        var localMap =hhhe;
+        var thisObj=eeee;
+        service = new google.maps.places.PlacesService(localMap);
+        service.nearbySearch(request, (results, status) => {
+        thisObj.callback(results, status, thisObj);
+          });
+      });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
+  }
+  gasStation()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    if(eeee.butt != 1){
+      eeee.butt = 1;      
+      navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -392,7 +425,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       request = {
       location: pos,
       radius: 1000,
-      types: ['atm']
+      types: ['gas_station']
       }
       var localMap =hhhe;
       var thisObj=eeee;
@@ -401,6 +434,37 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       thisObj.callback(results, status, thisObj);
         });
     });
-
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
+  }
+  fastFood()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    if(eeee.butt != 1){
+      eeee.butt = 1;
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      request = {
+      location: pos,
+      radius: 1000,
+      types: ['meal_takeaway']
+      }
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
+        });
+    });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
   }
 }
