@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
 import { google } from 'google-maps';
@@ -17,18 +17,26 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public google: google;
   public mapElem:any;
   public map;
+  public mappe;
   public holdThis;
   public globalMap;
   public infoWindow;
   public origin;
   public destination;
+  public createLandmark =false;
+  public  myMarker;
+  public  myMarkerOptions;
+  public markers =[];
+  public butt =-1;
   @ViewChild('map')  mapElementRef: ElementRef;
 
   constructor(
     private modalCtrl: ModalController, 
     private renderer: Renderer2, 
     private http: HttpClient,
-    private alertCtrl: AlertController 
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController 
+
     )
     
     {
@@ -48,6 +56,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   //////////////////// CODE TO DETECT LIVE LOCATION
   var map2 =this.map;
+  var theThis=this;
   this.infoWindow = new googleMaps.InfoWindow();
   var infoWin = this.infoWindow;
 
@@ -62,12 +71,16 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     infoWin.open(map2);
     
     map2.setCenter(pos);
-    var myMarkerOptions = {
+    theThis.myMarkerOptions = {
       position: pos,
       map: map2,
       //title: "Here you are",
     }
-    var myMarker = new googleMaps.Marker(myMarkerOptions);
+    //theThis.myMarker = new googleMaps.Marker(theThis.myMarkerOptions);
+
+    if(theThis.createLandmark){
+      console.log("Paaa: "+map2);
+    }
   }, function() {
   });
   }
@@ -82,8 +95,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       lat: event.latLng.lat(), 
       lng: event.latLng.lng()
     };
-   //this.modalCtrl.dismiss(selectedCoords);
-   // console.log("newLocation: "+selectedCoords.lat +" "+selectedCoords.lng);
    this.globalMap = map2;
    this.holdThis=this;
   });
@@ -122,10 +133,19 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   landmark()
   {
-    var localMap= this.map;
-    console.log("the MAP: "+this.map)
+    console.log("Landmark Created!");
+   /*var hhhe =this.map;
+   var meppi=hhhe;
     var pos, myMarker, myMarkerOptions;
-    if (navigator.geolocation) {
+      myMarkerOptions = {
+      position: desti,
+      map: hhhe,    //Issue is here, no access to current Map
+      title: "You Parked Here",
+    }
+    myMarker = new google.maps.Marker(myMarkerOptions);
+    */
+    
+    /*if (navigator.geolocation) {
       
         navigator.geolocation.getCurrentPosition(function(position) {
           pos = {
@@ -133,98 +153,111 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
             lng: position.coords.longitude
           };
         });
-      
+
       myMarkerOptions = {
-        position: pos,
-        map: localMap,    //Issue is here, no access to current Map
-        title: "You Parked Here",
-      }
-      console.log("map "+myMarkerOptions.map);
-      myMarker = new google.maps.Marker(myMarkerOptions);
+      position: desti,
+      map: hhhe,    //Issue is here, no access to current Map
+      title: "You Parked Here",
     }
+    myMarker = new google.maps.Marker(myMarkerOptions);
+    }*/
   }
 
   search()
   { 
-    var nyika =this.map;
+    var addition:string|number;
+    var start:string|number;
     var thisObi=this;
     var pos,pos2;
+    var isLoading = false;
     
       if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position) {
-           pos = {
+          pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        //Add logic to use a random generator that randomly finds a parking spot
-        //or not. When it does, it should assign a destination location
+        var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+        start =28.2;
+        addition=locaNum; 
+        var res:number = start+addition;
         pos2 = {
           lat: -25.756020,
-          lng:  28.239170
+          lng:  parseFloat(start+`${addition}`)
         }
-        thisObi.destination=pos2;
         thisObi.origin=pos;
-        
-        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49; 
-        console.log("randNumwww: "+ranNum); 
-        if(ranNum % 2=== 0 )    //Even number
-        {
-          setTimeout(
-            () => { 
-              thisObi.alertCtrl.create({
-                header: 'Parking Space Found!',
-                message: 'Select Navigate to display route or Cancel to Cancel',
-                buttons: [
-                  {
-                    text: 'Navigate ',
-                    handler: () =>{
-                      thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
-                    }
-                  },
-                  {
-                    text: 'Cancel',
-                    role: 'cancel'
-                  }
-              ]
-            }).then(alertEl =>{
-                alertEl.present();
-            }); 
-            }, 3000
-          );
-
-        }else{
+        thisObi.destination=pos2;
+        console.log("We parking there");
+       // thisObi.landmark(thisObi.destination);
+            
+        var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49;         
+        thisObi.loadingCtrl.create({keyboardClose: true,message: 'Searching..'})
+        .then(loadingEl =>{
+          loadingEl.present();
+          if(ranNum % 2=== 0 )    
+          {
             setTimeout(
               () => { 
+                  //this.isLoading= false;
+                  loadingEl.dismiss();
                   thisObi.alertCtrl.create({
-                  header: 'No Parking Space Found!',
-                  message: 'Try another Parking lot or Search again',
-                  buttons: 
-                  [
-                      {
-                        text: 'Search ',
-                        handler: () =>{
-                        thisObi.search();
+                  header: 'Parking Space Found!',
+                  message: 'Select Navigate to display route or Cancel to Cancel',
+                  buttons: [
+                    {
+                      text: 'Navigate ',
+                      handler: () =>{
+                        thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination);
                       }
-                      },
-                      {
-                        text: 'Cancel',
-                        role: 'cancel'
-                      }
-                  ]
-                }).then(alertEl =>{
+                    },
+                    {
+                      text: 'Cancel',
+                      role: 'cancel'
+                    }
+                ]
+              }).then(alertEl =>{
                   alertEl.present();
-                });
-              },
-              3000
+              }); 
+              }, 3000
             );
-        }
+  
+          }else{
+              setTimeout(
+                () => { 
+                    loadingEl.dismiss();
+                    thisObi.alertCtrl.create({
+                    header: 'No Parking Space Found!',
+                    message: 'Try another Parking lot or Search again',
+                    buttons: 
+                    [
+                        {
+                          text: 'Search ',
+                          handler: () =>{
+                          thisObi.search();
+                          }
+                        },
+                        {
+                          text: 'Cancel',
+                          role: 'cancel'
+                        }
+                    ]
+                  }).then(alertEl =>{
+                    alertEl.present();
+                });
+                },
+                3000
+              );
+          }
+        });
       });
     } 
   }
 
    calculateAndRenderDirections(origin, destination){
       var nyika =this.map;
+      console.log("Possible how "+nyika);
       var thisObi=this;
+      console.log("googe "+google);
       var directionsService = new google.maps.DirectionsService(),
           directionsDisplay = new google.maps.DirectionsRenderer(),
           request = 
@@ -259,6 +292,17 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           }
       }
   }
+  clearArray(markers){
+    var thisObj=this;
+    thisObj.butt=-1;
+
+    for(var m in markers){
+        console.log("Clearing markers array");
+        thisObj.markers[m].setMap(null);
+    }
+    thisObj.markers = [];
+}
+
   createMarker(place, holdThis){
     var holdThisThis=holdThis;
     var placeLoc = place.geometry.location;
@@ -271,14 +315,79 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         holdThisThis.infoWindow.setContent(place.name);
         holdThisThis.infoWindow.open(holdThisThis.map,this);
       });
+      holdThisThis.markers.push(marker);
   }
   restaurant()
   {
       var hhhe =this.map;
+      console.log("meeep +"+hhhe);
       var eeee=this;
       var request,service;
-      
+
+      if(eeee.butt != 1){
+          eeee.butt =1;
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          request = {
+          location: pos,
+          radius: 1000,
+          types: ['restaurant']
+          }
+          var localMap =hhhe;
+  
+        var localMap =hhhe;
+        var thisObj=eeee;
+        service = new google.maps.places.PlacesService(localMap);
+        service.nearbySearch(request, (results, status) => {
+        thisObj.callback(results, status, thisObj);
+          });
+      });
+      }
+      else{
+        eeee.clearArray(eeee.markers);
+      }
+  }
+  carWash()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    if(eeee.butt != 1){
+      eeee.butt = 1;      
       navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      request = {
+      location: pos,
+      radius: 1000,
+      types: ['car_wash']
+      }
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
+        });
+    });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
+  }
+  atms()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    if(eeee.butt != 1){
+        eeee.butt = 1;
+        navigator.geolocation.getCurrentPosition(function(position) {
           var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -286,7 +395,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         request = {
         location: pos,
         radius: 1000,
-        types: ['restaurant','bakery','cafe']
+        types: ['atm']
         }
         var localMap =hhhe;
         var thisObj=eeee;
@@ -295,6 +404,38 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         thisObj.callback(results, status, thisObj);
           });
       });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
+  }
+  gasStation()
+  {
+    var hhhe =this.map;
+    var eeee=this;
+    var request,service;
+    
+    if(eeee.butt != 1){
+      eeee.butt = 1;      
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      request = {
+      location: pos,
+      radius: 1000,
+      types: ['gas_station']
+      }
+      var localMap =hhhe;
+      var thisObj=eeee;
+      service = new google.maps.places.PlacesService(localMap);
+      service.nearbySearch(request, (results, status) => {
+      thisObj.callback(results, status, thisObj);
+        });
+    });
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
   }
   fastFood()
   {
@@ -302,7 +443,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     var eeee=this;
     var request,service;
     
-    navigator.geolocation.getCurrentPosition(function(position) {
+    if(eeee.butt != 1){
+      eeee.butt = 1;
+      navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -310,7 +453,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       request = {
       location: pos,
       radius: 1000,
-      types: ['fast-food']
+      types: ['meal_takeaway']
       }
       var localMap =hhhe;
       var thisObj=eeee;
@@ -319,54 +462,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       thisObj.callback(results, status, thisObj);
         });
     });
-  }
-  carWash()
-  {
-    var hhhe =this.map;
-    var eeee=this;
-    var request,service;
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
-      request = {
-      location: pos,
-      radius: 1000,
-      types: ['car-wash']
-      }
-      var localMap =hhhe;
-      var thisObj=eeee;
-      service = new google.maps.places.PlacesService(localMap);
-      service.nearbySearch(request, (results, status) => {
-      thisObj.callback(results, status, thisObj);
-        });
-    });
-  }
-  atms()
-  {
-    var hhhe =this.map;
-    var eeee=this;
-    var request,service;
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
-      request = {
-      location: pos,
-      radius: 1000,
-      types: ['atm']
-      }
-      var localMap =hhhe;
-      var thisObj=eeee;
-      service = new google.maps.places.PlacesService(localMap);
-      service.nearbySearch(request, (results, status) => {
-      thisObj.callback(results, status, thisObj);
-        });
-    });
-
+    }else{
+      eeee.clearArray(eeee.markers);
+    }
   }
 }

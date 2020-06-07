@@ -12,11 +12,12 @@ import { MapModalComponent } from './shared/map-modal/map-modal.component';
 })
 export class AppComponent {
   private isHidden: boolean = true;
+  public createLand: boolean =false;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-   private mapModal: MapModalComponent
+    private mapModal: MapModalComponent
   ) {
     this.initializeApp();
   }
@@ -32,6 +33,7 @@ export class AppComponent {
 }
 createLandmark(){
   this.mapModal.landmark();
+  
 }
 
 }
