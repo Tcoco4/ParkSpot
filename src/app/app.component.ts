@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MapModalComponent } from './shared/map-modal/map-modal.component';
@@ -17,7 +17,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private mapModal: MapModalComponent
+    private mapModal: MapModalComponent,
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
   }
@@ -31,9 +32,28 @@ export class AppComponent {
   displayEvents(){
     this.mapModal.events();
 }
-createLandmark(){
-  this.mapModal.landmark();
+locateLandmark(){
+  console.log("In app Componet")
+  this.mapModal.locateLandmark();
   
+}
+setting(){
+  this.alertCtrl.create({
+    header: 'Language-settings',
+    message: '',
+    buttons: [
+      {
+        text: 'Afrikaans ',
+        role: 'cancel'
+      },
+      {
+        text: 'Engish ',
+        role: 'accept'
+      }
+  ]
+}).then(alertEl =>{
+    alertEl.present();
+});
 }
 
 }

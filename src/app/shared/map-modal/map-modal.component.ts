@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MapModalComponent implements OnInit,  AfterViewInit{
  @Output() currCoords = new EventEmitter();
+ private hideLandmark: boolean =true;
   private isHidden: boolean = true;
   public google: google;
   public mapElem:any;
@@ -149,9 +150,17 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
    // return pos;
   }
 
-  landmark()
+  locateLandmark()
   {
-    console.log("Landmark Created!");
+    console.log("In map modale");
+    if(this.hideLandmark === true){
+      this.hideLandmark = false;
+      document.getElementById("locateLandmark").hidden = false;
+    }else if(this.hideLandmark === false){
+      this.hideLandmark = true;
+      document.getElementById("locateLandmark").hidden = true;
+
+    }
    /*var hhhe =this.map;
    var meppi=hhhe;
     
@@ -484,6 +493,38 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     });
     }else{
       eeee.clearArray(eeee.markers);
+    }
+  }
+
+  removeRoute(){
+    console.log("remoeve displayed route");
+  }
+  findCar(){
+    var addition:string|number;
+    var start:string|number;
+    var thisObi=this;
+    var pos,pos2;
+
+    thisObi.removeRoute();
+    var isLoading = false;
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position) {
+              pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+            var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+            start =28.2;
+            addition=locaNum; 
+            var res:number = start+addition;
+            pos2 = {
+              lat: -25.756020,
+              lng:  parseFloat(start+`${addition}`)
+            }
+            thisObi.origin=pos;
+            thisObi.destination=pos2;
+            thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
+      })
     }
   }
 }
