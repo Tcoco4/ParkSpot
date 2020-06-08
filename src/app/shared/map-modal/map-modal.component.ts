@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
@@ -6,13 +6,15 @@ import { google } from 'google-maps';
 import { map, combineAll } from 'rxjs/operators';
 import { ConstantPool, ThrowStmt } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
+//import { EventEmitter } from 'protractor';
 
 @Component({
-  selector: 'app-map-modal',
+  selector: 'app-map-modal', 
   templateUrl: './map-modal.component.html',
   styleUrls: ['./map-modal.component.scss'],
 })
 export class MapModalComponent implements OnInit,  AfterViewInit{
+ @Output() currCoords = new EventEmitter();
   private isHidden: boolean = true;
   public google: google;
   public mapElem:any;
@@ -128,6 +130,23 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
       }
     })
+  }
+  CurrentCoords(){
+    var eeee=this;
+    var pos;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+          console.log("position: "+pos.lat+" "+pos.lng);
+          this.currCoords.emit(pos);
+          return pos;
+      });
+    }
+    //console.log("position: "+pos.lat+" "+pos.lng);
+   // return pos;
   }
 
   landmark()
