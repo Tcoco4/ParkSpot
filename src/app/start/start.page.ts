@@ -14,11 +14,10 @@ export class StartPage implements OnInit {
 
   ngOnInit() {
   }
+  CurrCoords(myCoord: any){
+     /* console.log("Coords Received: "+myCoord);
+      return myCoord;*/
 
-  touchMapReturnAddress(){
-    //need access to the locationPicker.component
-    console.log('Need access to LocationPicker');
-    this.locationCo.onPickLocation();
   }
 }
 
