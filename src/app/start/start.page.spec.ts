@@ -1,12 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController, AlertController, LoadingController } from '@ionic/angular';
 
 import { StartPage } from './start.page';
+import { MapModalComponent } from '../shared/map-modal/map-modal.component';
+import { Renderer2 } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-describe('StartPage', () => {
-  let component: StartPage;
-  let fixture: ComponentFixture<StartPage>;
-
+describe('StartPage Tests', () => {
+  let map: MapModalComponent;
+  let renderer: Renderer2;
+  let alert: AlertController;
+  let load: LoadingController
+  let spy: any;
   /*beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ StartPage ],
@@ -21,11 +26,20 @@ describe('StartPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });*/
-  it('Landing Page Loads', () => {
-    expect(2+2).toBe(4);
+
+  beforeEach(() => {
+  
   });
-  it('Map injected into Home Page', () => {
-    expect(2+2).toBe(4);
+
+  afterEach(() => {
+
+  });
+
+  it('Start Page Loads', () => {
+    expect(StartPage).toBeDefined();
+  });
+  it('Map injected into Start Page', () => {
+    expect(MapModalComponent).toBeDefined();
   });
   
 });

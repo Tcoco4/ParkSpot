@@ -18,14 +18,19 @@ export class SharePage implements OnInit {
       console.log("Fetchign Coordinates");
       var pos;
       if (navigator.geolocation) {
+        console.log("heeelo");
           navigator.geolocation.getCurrentPosition(function(position) {
             pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
+          this.coords =pos;
+          console.log("position: "+pos.lat+" "+pos.lng);
           return pos;
-          //  console.log("position: "+pos.lat+" "+pos.lng);
+            
         });
+      }else{
+        console.log("Not insde");
       }
       
   }
