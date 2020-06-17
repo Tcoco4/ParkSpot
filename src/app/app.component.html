@@ -8,21 +8,15 @@
 
     <ion-content>
       <ion-list>
-        <ion-menu-toggle  menuId="m1" >
+        <ion-menu-toggle  menuId-="haveAccount" content-id="m1" >
         <ion-item lines="none" (click)="locateLandmark()">
           <ion-icon name="pin" slot="start"></ion-icon>
           <ion-label>Create Landmark</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <!--<ion-menu-toggle>
-        <ion-item lines="none">
-          <ion-icon name="pin" slot="start"></ion-icon>
-          <ion-label>Delete Landmark</ion-label>
-        </ion-item>
-      </ion-menu-toggle>-->
       <ion-menu-toggle menuId="m1">
         <ion-item lines="none"  (click)="displayEvents()">
-       <!-- <ion-item lines="none" routerLink="/events">-->
+
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
           <ion-label>Nearby Events</ion-label>
         </ion-item>
@@ -45,23 +39,16 @@
           <ion-label>Signout</ion-label>
         </ion-item>
       </ion-menu-toggle>
-    <!--  <ion-menu-toggle menuId="m1">
-        <ion-item lines="none" routerLink="/events">
-          <ion-icon name="exit-outline" slot="start"></ion-icon>
-          <ion-label>Events</ion-label>
-        </ion-item>
-      </ion-menu-toggle>-->
       </ion-list>
     </ion-content>
   </ion-menu>
 
-  <!--<ion-menu  side="start" menuId="m2">
+  <!--<ion-menu  side="start" content="noAccount">
     <ion-header>
       <ion-toolbar>
         <ion-title>ParkSpot</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content>
       <ion-list>
         <ion-menu-toggle>

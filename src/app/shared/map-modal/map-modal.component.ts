@@ -112,11 +112,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     const googleModule = win.google; //refers to a not set varable. will be set after importing JS sdk
     
     if(googleModule && googleModule.maps){ //if js sdk has beem looaded before
-      console.log('THE MODULE HAS BEEN LOADED BEFORE');
       return Promise.resolve(googleModule.maps) //entry point to maps js sdk that exposes all funcs, methods we'll use
     }
     return new Promise((resolve, reject) => {
-      console.log('LOADEDING FOR THE FIRST TIME');
       const script = document.createElement('script');
       script.src = 'https://maps.googleapis.com/maps/api/js?v=quarterly&key='+environment.googleMapsAPIKey+'&libraries=places,geometry';
       script.async = true;
@@ -154,7 +152,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
   locateLandmark()
   {
-    console.log("In map modale");
+   // console.log("In map modale");
     if(this.hideLandmark === true){
       this.hideLandmark = false;
       document.getElementById("locateLandmark").hidden = false;
