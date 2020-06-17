@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { MapModalComponent } from '../shared/map-modal/map-modal.component';
+import { LocationPickerComponent } from '../shared/pickers/location-picker/location-picker.component';
 
 @Component({
   selector: 'app-my-account',
@@ -8,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MyAccountPage implements OnInit {
 
-  constructor(private alertCtrl: AlertController) { }
+  constructor(private alertCtrl: AlertController, private modal: ModalController) { }
 
   ngOnInit() {
   }
@@ -30,10 +32,17 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     }); 
   }
-
+ /* <embed
+  src="COS730_Assignment_3.pdf"
+  type="application/pdf"
+  scrolling="auto"
+  height="100%"
+  width="100%"
+           >
+    </embed>*/
   help(){
       this.alertCtrl.create({
-        header: 'Speak to a consultant',
+        header: 'Speak to Consultant',
         message: 'Dial  0 800 123 4567',
         buttons: [
           {
@@ -47,6 +56,14 @@ export class MyAccountPage implements OnInit {
       ]
     }).then(alertEl =>{
         alertEl.present();
+    });
+  }
+   
+  userManual(){
+    this.modal.create({
+      component: LocationPickerComponent
+      }).then(modalEl =>{
+        modalEl.present();
     });
   }
 
