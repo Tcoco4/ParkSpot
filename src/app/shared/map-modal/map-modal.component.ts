@@ -40,6 +40,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     //private http: HttpClient,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController 
+
     )
     
     {
@@ -164,7 +165,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     }
    /*var hhhe =this.map;
    var meppi=hhhe;
-    
     var pos, myMarker, myMarkerOptions;
       myMarkerOptions = {
       position: desti,
@@ -278,7 +278,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
               );
           }
         });
-
       });
     } 
   }
@@ -317,7 +316,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
     }
   }
-
   callback(results,status, holdThis){    
     var placeLoc, marker;
     if(status == google.maps.places.PlacesServiceStatus.OK){
@@ -336,6 +334,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     }
     thisObj.markers = [];
 }
+
   createMarker(place, holdThis){
     var holdThisThis=holdThis;
     var placeLoc = place.geometry.location;

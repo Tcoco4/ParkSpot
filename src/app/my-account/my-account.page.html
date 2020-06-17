@@ -3,11 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/start"></ion-back-button>
     </ion-buttons>
-    <ion-title>User Account</ion-title>
+    <ion-title class="ion-text-center">My Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="backk">
 
 <ion-list-header></ion-list-header>
   <!--<ion-avatar class="ion-margin-start " >
@@ -40,17 +40,25 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item lines="none" (click)="help()">
-        <ion-icon name="help-outline" slot="start"></ion-icon>
-        <ion-label>Get Help</ion-label>
+      <ion-item lines="none" (click)="Settings()">
+        <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <ion-label>Language</ion-label>
       </ion-item>  
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item lines="none" (click)="Settings()">
-        <ion-icon name="settings-outline" slot="start"></ion-icon>
+      <ion-item lines="none" (click)="userManual()">
+        <ion-icon name="help-outline" slot="start"></ion-icon>
         <ion-label>User Manual</ion-label>
+      </ion-item>  
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none" (click)="help()">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-label>Speak to Consultant</ion-label>
       </ion-item>  
     </ion-col>
   </ion-row>
