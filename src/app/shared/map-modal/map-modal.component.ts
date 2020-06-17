@@ -30,13 +30,14 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public  myMarker;
   public  myMarkerOptions;
   public markers =[];
+  public directions = [];
   public butt =-1;
   @ViewChild('map')  mapElementRef: ElementRef;
 
   constructor(
-    private modalCtrl: ModalController, 
+   // private modalCtrl: ModalController, 
     private renderer: Renderer2, 
-    private http: HttpClient,
+    //private http: HttpClient,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController 
 
@@ -215,7 +216,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
         thisObi.origin=pos;
         thisObi.destination=pos2;
-        console.log("We parking there");
+        //console.log("We parking there");
        // thisObi.landmark(thisObi.destination);
             
         var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49;         
@@ -283,9 +284,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
 
    calculateAndRenderDirections(origin, destination){
       var nyika =this.map;
-      console.log("Possible how "+nyika);
-      var thisObi=this;
-      console.log("googe "+google);
+      var thisObi=this;    
       var directionsService = new google.maps.DirectionsService(),
           directionsDisplay = new google.maps.DirectionsRenderer(),
           request = 
@@ -297,7 +296,12 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         directionsDisplay.setMap(nyika);
         directionsService.route(request, (result, status) =>{
         if(status == 'OK'){
-            directionsDisplay.setDirections(result);
+          console.log("butt value "+this.butt);
+          directionsDisplay.setDirections(result); 
+            /*setTimeout( ()=>{
+              directionsDisplay.setMap(null);
+            }, 5000)*/
+            
         }
       })
   }
@@ -348,7 +352,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   restaurant()
   {
       var hhhe =this.map;
-      console.log("meeep +"+hhhe);
       var eeee=this;
       var request,service;
 
@@ -494,36 +497,38 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       eeee.clearArray(eeee.markers);
     }
   }
-
-  removeRoute(){
-    console.log("remoeve displayed route");
-  }
   findCar(){
     var addition:string|number;
     var start:string|number;
     var thisObi=this;
     var pos,pos2;
 
-    thisObi.removeRoute();
-    var isLoading = false;
-        if(navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(function(position) {
-              pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-            var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
-            start =28.2;
-            addition=locaNum; 
-            var res:number = start+addition;
-            pos2 = {
-              lat: -25.756020,
-              lng:  parseFloat(start+`${addition}`)
-            }
-            thisObi.origin=pos;
-            thisObi.destination=pos2;
-            thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
-      })
+    if(thisObi.butt != 1){
+      thisObi.butt =1;
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+          start =28.2;
+          addition=locaNum; 
+          var res:number = start+addition;
+          pos2 = {
+            lat: -25.756020,
+            lng:  parseFloat(start+`${addition}`)
+          }
+          thisObi.origin=pos;
+          thisObi.destination=pos2;
+          thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
+    })
+  }
+    }else{
+      console.log("remove path");
+      thisObi.butt=-1;
+
     }
+
   }
 }

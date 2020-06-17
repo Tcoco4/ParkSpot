@@ -13,19 +13,18 @@
         <ion-col>
           <!--https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=-->
           <!--https://www.google.com/maps/place/-25.755648,28.239462-->
-         <!-- <a href="'mailto:?subject=My current Location&amp;body=I am here https://www.google.com/maps/place/'+javascript:currentCoordinates()" style="text-decoration: none;">-->
-          <a href="mailto:?subject=My current Location&amp;body=I am here https://www.google.com/maps/place/-25.755648,28.239462" style="text-decoration: none;">  
+          <a style="text-decoration: none;">
           <ion-item lines="none" (click)="currentCoordinates()">
               <ion-icon name="location-outline" slot="start"></ion-icon>
               <ion-label>Share location</ion-label>
             </ion-item>
-            </a>   
+           </a>  
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <a href="mailto:?subject=My Landmark Location&amp;body=Here is my landmark location https://www.google.com/maps/place/-25.755700,28.239500" style="text-decoration: none;">
-            <ion-item lines="none" >
+          <a style="text-decoration: none;">
+            <ion-item lines="none" (click)="landmarkLocation()"  >
               <ion-icon name="pin-outline" slot="start"></ion-icon>
               <ion-label>Share Landmark</ion-label>
             </ion-item>
@@ -34,8 +33,8 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <a href="mailto:?subject=Event Location&amp;body=Come to this event location https://www.google.com/maps/place/McDonald's+Hatfield/@-25.752135,28.237606,17z" style="text-decoration: none;">
-            <ion-item lines="none" >
+          <a style="text-decoration: none;">
+            <ion-item lines="none" (click)="eventLocation()" >
               <ion-icon name="aperture-outline" slot="start"></ion-icon>
               <ion-label>Share Event location</ion-label>
             </ion-item>
