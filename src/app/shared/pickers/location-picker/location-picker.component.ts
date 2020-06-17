@@ -46,4 +46,8 @@ export class LocationPickerComponent implements OnInit {
     })
     );
   }
+
+  onclose(){
+    this.modalCtrl.dismiss();
+  }
 }

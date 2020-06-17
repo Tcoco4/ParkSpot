@@ -21,12 +21,6 @@
         </ion-item>
       </ion-menu-toggle>-->
       <ion-menu-toggle menuId="m1">
-        <ion-item lines="none" routerLink="/share" >
-          <ion-icon name="share-social-outline" slot="start"></ion-icon>
-          <ion-label>Share Location</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
         <ion-item lines="none"  (click)="displayEvents()">
        <!-- <ion-item lines="none" routerLink="/events">-->
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
@@ -34,9 +28,15 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menuId="m1">
+        <ion-item lines="none" routerLink="/share" >
+          <ion-icon name="share-social-outline" slot="start"></ion-icon>
+          <ion-label>Share Location</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle menuId="m1">
         <ion-item lines="none" routerLink="/my-account">
-          <ion-icon name="settings-outline" slot="start"></ion-icon>
-          <ion-label>Settings</ion-label>
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label>My Account</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menuId="m1">
@@ -45,6 +45,12 @@
           <ion-label>Signout</ion-label>
         </ion-item>
       </ion-menu-toggle>
+    <!--  <ion-menu-toggle menuId="m1">
+        <ion-item lines="none" routerLink="/events">
+          <ion-icon name="exit-outline" slot="start"></ion-icon>
+          <ion-label>Events</ion-label>
+        </ion-item>
+      </ion-menu-toggle>-->
       </ion-list>
     </ion-content>
   </ion-menu>
