@@ -28,5 +28,7 @@
   
 }
 ion-content.background{
-  background-image: url(../../assets/icon/ppk.jpg);
+  --background: url(../../assets/icon/ppk.jpg) no-repeat center center fixed;
+  //--background-size: 100%;
+  overflow: hidden;
 }

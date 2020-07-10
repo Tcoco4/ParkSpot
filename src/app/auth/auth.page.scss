@@ -1,0 +1,11 @@
+ion-content.back{
+   --background: url(../../assets/icon/favicon.png) no-repeat center center fixed;
+   background-color: #8FBC8F;
+  }
+
+  .card-center{
+    height: 47%;
+    width:70%; // adjust width on your ion-card suitable on your screen
+    display:block;
+    margin: 10% auto;
+}
