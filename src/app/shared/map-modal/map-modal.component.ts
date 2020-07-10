@@ -415,6 +415,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   }
   atms()
   {
+    console.log("We are within");
     var hhhe =this.map;
     var eeee=this;
     var request,service;
