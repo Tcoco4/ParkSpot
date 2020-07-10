@@ -20,6 +20,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public google: google;
   public mapElem:any;
   public map;
+  public theDestination: any;
   public mappe;
   public holdThis;
   public globalMap;
@@ -40,11 +41,10 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     //private http: HttpClient,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController 
-
     )
-    
     {
      this.holdThis=this;
+    // this.theDestination=null;
     }
   ngOnInit() {}
   //initialising Google maps
@@ -215,6 +215,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           lng:  parseFloat(start+`${addition}`)
         }
         thisObi.origin=pos;
+        thisObi.theDestination=pos2;
+        console.log("Upstairs" +thisObi.theDestination.lat+" "+thisObi.theDestination.lng);
         thisObi.destination=pos2;
         //console.log("We parking there");
        // thisObi.landmark(thisObi.destination);
@@ -278,8 +280,12 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
               );
           }
         });
+        
       });
+    //  console.log("Inside" +thisObi.theDestination.lat+" "+thisObi.theDestination.lng);
+    this.theDestination=thisObi.theDestination;
     } 
+    console.log("The End " +this.theDestination);
   }
 
    calculateAndRenderDirections(origin, destination){
@@ -501,34 +507,35 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     var addition:string|number;
     var start:string|number;
     var thisObi=this;
-    var pos,pos2;
-
-    if(thisObi.butt != 1){
-      thisObi.butt =1;
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position) {
-            pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-          var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
-          start =28.2;
-          addition=locaNum; 
-          var res:number = start+addition;
-          pos2 = {
-            lat: -25.756020,
-            lng:  parseFloat(start+`${addition}`)
-          }
-          thisObi.origin=pos;
-          thisObi.destination=pos2;
-          thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
-    })
-  }
-    }else{
-      console.log("remove path");
+    var pos;
+    
+    if(this.theDestination==null){
       thisObi.butt=-1;
-
+      console.log("Car not parked yet!");
+    }else
+    {
+      if(thisObi.butt != 1){
+        thisObi.butt =1;
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position) {
+              pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+            var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+            start =28.2;
+            addition=locaNum; 
+            var res:number = start+addition;
+            thisObi.origin=pos;
+            //thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
+            thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.theDestination)
+          })
+        }
+      }else{
+        console.log("remove path");
+        thisObi.butt=-1;
+      }
     }
+}
 
-  }
 }
