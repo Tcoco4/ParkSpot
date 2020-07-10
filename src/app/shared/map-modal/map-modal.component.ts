@@ -216,7 +216,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         }
         thisObi.origin=pos;
         thisObi.theDestination=pos2;
-        console.log("Upstairs" +thisObi.theDestination.lat+" "+thisObi.theDestination.lng);
         thisObi.destination=pos2;
         //console.log("We parking there");
        // thisObi.landmark(thisObi.destination);
@@ -282,10 +281,8 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         });
         
       });
-    //  console.log("Inside" +thisObi.theDestination.lat+" "+thisObi.theDestination.lng);
     this.theDestination=thisObi.theDestination;
     } 
-    console.log("The End " +this.theDestination);
   }
 
    calculateAndRenderDirections(origin, destination){
@@ -304,9 +301,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         if(status == 'OK'){
           console.log("butt value "+this.butt);
           directionsDisplay.setDirections(result); 
-            /*setTimeout( ()=>{
+            setTimeout( ()=>{
               directionsDisplay.setMap(null);
-            }, 5000)*/
+            }, 20000)
             
         }
       })
@@ -511,7 +508,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     
     if(this.theDestination==null){
       thisObi.butt=-1;
-      console.log("Car not parked yet!");
+      console.log("Car not parked yet!");   //To display alert here
     }else
     {
       if(thisObi.butt != 1){
