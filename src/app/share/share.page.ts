@@ -16,6 +16,7 @@ export class SharePage implements OnInit {
     
   }
     currentCoordinates(): any{
+      var hshs;
       var bes=this;
       var a;
       var href;
