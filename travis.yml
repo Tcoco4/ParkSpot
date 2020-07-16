@@ -6,4 +6,4 @@ node_js:
  - npm install -g @ionic/cli
  
  script:
-  - npm run test-only
+  - npm run test
