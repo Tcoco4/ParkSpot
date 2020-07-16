@@ -11,8 +11,6 @@ sauce_connect:
 install:
     - npm install
     - npm install -g @ionic/cli
-before_script:
-- npm install -g @angular/cli
 script: 
- - ng test
-#- echo $ npm run test
+#- npm run test
+- echo $ npm run test
