@@ -33,7 +33,7 @@ export class AppComponent {
     this.mapModal.events();
 }
 locateLandmark(){
-  console.log("In app Componet")
+ // console.log("In app Componet")
   this.mapModal.locateLandmark();
   
 }
