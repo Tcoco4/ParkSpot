@@ -64,9 +64,9 @@ describe('MapModalComponent Tests', () => {
     spi = spyOn(map, 'search');
     map.search();
     expect(spi).toHaveBeenCalled();
-    expect(spi).toContain(alert.create().then(alertEl =>{
+   /* expect(spi).toContain(alert.create().then(alertEl =>{
       alertEl.present();
-    }));
+    }));*/
     /*spyOn(window, "alert");
     window.alert(alert);
     expect(window.alert).toHaveBeenCalledWith("Try another Parking lot or Search again");

@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "stable"
+addons: chrome
+chrome: 
+  - "stable"
+before_install:
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sleep 6 # give xvfb some time to start
+install:
+    - npm install
+    - npm install -g @ionic/cli
+script: 
+ - npm run test
