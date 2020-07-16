@@ -12,5 +12,5 @@ install:
     - npm install
     - npm install -g @ionic/cli
 script: 
- - npm test --exit
+ - npm run test-ci
 #- echo $ npm run test
