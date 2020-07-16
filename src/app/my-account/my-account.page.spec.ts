@@ -1,12 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule, AlertController, LoadingController } from '@ionic/angular';
 
 import { MyAccountPage } from './my-account.page';
+import { MapModalComponent } from '../shared/map-modal/map-modal.component';
+import { Renderer2 } from '@angular/core';
 
 describe('MyAccountPage Tests', () => {
   let alert: AlertController;
   let myAcc:  MyAccountPage;
+  let modal: MapModalComponent;
   let spy: any;
+  let render : Renderer2;
+  let load: LoadingController
   
   /*beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,6 +27,9 @@ describe('MyAccountPage Tests', () => {
     });
   }));*/
   beforeEach(() => {
+    render;
+    load = new LoadingController();
+    modal = new MapModalComponent(render, alert, load);
     alert =  new AlertController();
     myAcc = new MyAccountPage(alert);
   });
