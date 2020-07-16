@@ -144,7 +144,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           lng: position.coords.longitude
         };
           console.log("position: "+pos.lat+" "+pos.lng);
-          this.currCoords.emit(pos);
+         // this.currCoords.emit(pos);
           return pos;
       });
     }
@@ -282,9 +282,15 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         
       });
     this.theDestination=thisObi.theDestination;
+    //console.log("HORSEs "+this.getDestinationLocation());
     } 
   }
 
+  getDestinationLocation(){
+    console.log("In getDestinationLocation");
+   // console.log("dest is "+this.theDestination);
+    return this.theDestination;
+  }
    calculateAndRenderDirections(origin, destination){
       var nyika =this.map;
       var thisObi=this;    

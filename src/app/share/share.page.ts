@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SharePage implements OnInit {
  public pos: any;
-  constructor(private mapModal: MapModalComponent) { }
+  constructor(public mapModal: MapModalComponent) { }
 
   ngOnInit() {
     
@@ -34,19 +34,26 @@ export class SharePage implements OnInit {
         });
       }
   }
-  landmarkLocation(){
+  landmarkLocation(landmark:any){
     var bes=this;
     var a;
     var href;
+
+
+    console.log("In landmakr class");
+    console.log(this.mapModal.getDestinationLocation());
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           bes.pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+
         a = document.getElementsByTagName("a")[1];
         href = document.createAttribute("href");
-        href.value ="mailto:?subject=My Landmark Location&body=Here is my landmark location https://www.google.com/maps/place/"+bes.pos.lat+","+bes.pos.lng;  
+        href.value ="mailto:?subject=My Landmark Location&body=Here is my landmark location https://www.google.com/maps/place/"+bes.pos.lat+","+bes.pos.lng; 
+     //   href.value ="mailto:?subject=My Landmark Location&body=Here is my landmark location https://www.google.com/maps/place/"+landmark.lat+","+landmark.lng;  
         a.setAttributeNode(href);
         document.getElementsByTagName("a")[1].click();
        
