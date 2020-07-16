@@ -1,0 +1,6 @@
+language: typescript
+typescript:
+  - "stable"
+ install:
+ - npm install
+ - npm install -g @ionic/cli
