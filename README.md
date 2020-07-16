@@ -15,4 +15,7 @@ ParkSpot Web Application <a href="https://glowing-cargo-278417.web.app/" target=
   * npm install -g @ionic/cli
   * ionic serve
 
-
+# Testing Tools
+ ![Travis Logo](https://github.com/Tcoco4/ParkSpot/blob/master/tcl.jpg)
+ 
+ ![Travis CI Status](https://travis-ci.org/Tcoco4/ParkSpot.svg?branch=master)
