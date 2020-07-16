@@ -14,6 +14,6 @@ install:
     - npm install
     - npm install -g @ionic/cli
 script: 
- - npm run test
+ - echo $ npm run test
 after_success:
   - travis_terminate 0
