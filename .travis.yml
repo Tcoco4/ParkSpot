@@ -8,12 +8,9 @@ sauce_connect:
     username: "Tcoco4"
     jwt:
     secure: "The secure string output by `travis encrypt SAUCE_ACCESS_KEY=d15a3bab-781f-4d02-8bcd-aff84a2cd5fa`"
-cache:
-  yarn: true
+env: YARN_GPG=no 
 install:
     - npm install
     - npm install -g @ionic/cli
 script: 
  - npm run test
-after_success:
-- pkill node
