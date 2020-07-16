@@ -3,36 +3,36 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/start"></ion-back-button>
     </ion-buttons>
-    <ion-title>My Account</ion-title>
+    <ion-title class="ion-text-center">My Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="backk">
 
 <ion-list-header></ion-list-header>
-  <ion-avatar class="ion-margin-start " >
+  <!--<ion-avatar class="ion-margin-start " >
     <img src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png">
-</ion-avatar>
+</ion-avatar>-->
 <ion-grid>
-  <ion-row>
+ <!-- <ion-row>
     <ion-col>
       <ion-item lines="none">
          <ion-icon name="person-outline" slot="start"></ion-icon>
           <ion-label>User Name:</ion-label>
         </ion-item>
     </ion-col>
-  </ion-row>
-  <ion-row>
+  </ion-row>-->
+  <!--<ion-row>
     <ion-col>
       <ion-item lines="none">
           <ion-icon name="people-outline" slot="start"></ion-icon>
           <ion-label>Make Friends</ion-label>
         </ion-item>
     </ion-col>
-  </ion-row>
+  </ion-row>-->
   <ion-row>
     <ion-col>
-      <ion-item lines="none">
+      <ion-item lines="none" (click)="NewFeatures()">
         <ion-icon name="construct-outline" slot="start"></ion-icon>
         <ion-label>New Features</ion-label>
       </ion-item> 
@@ -40,16 +40,31 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item lines="none">
+      <ion-item lines="none" (click)="Settings()">
         <ion-icon name="settings-outline" slot="start"></ion-icon>
-        <ion-label>Settings</ion-label>
+        <ion-label>Language</ion-label>
       </ion-item>  
     </ion-col>
   </ion-row>
-
   <ion-row>
     <ion-col>
-      <ion-item lines="none">
+      <ion-item lines="none" (click)="userManual()">
+        <ion-icon name="help-outline" slot="start"></ion-icon>
+        <ion-label>User Manual</ion-label>
+      </ion-item>  
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none" (click)="help()">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-label>Speak to Consultant</ion-label>
+      </ion-item>  
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none" routerLink="/home">
         <ion-icon name="exit-outline" slot="start"></ion-icon>
         <ion-label>Signout</ion-label>
       </ion-item>

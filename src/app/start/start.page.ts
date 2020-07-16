@@ -10,15 +10,17 @@ import { LocationPickerComponent } from '../shared/pickers/location-picker/locat
 })
 export class StartPage implements OnInit {
 
+  useAcc: boolean = false;
+  noAcc: boolean = false;
+  
   constructor(private shared: SharedModule, private locationCo: LocationPickerComponent) { }
 
   ngOnInit() {
   }
+  CurrCoords(myCoord: any){
+     /* console.log("Coords Received: "+myCoord);
+      return myCoord;*/
 
-  touchMapReturnAddress(){
-    //need access to the locationPicker.component
-    console.log('Need access to LocationPicker');
-    this.locationCo.onPickLocation();
   }
 }
 

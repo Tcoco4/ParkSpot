@@ -2,16 +2,16 @@
 <ion-content>
   <div class="map" #map></div>
   <ion-fab hidden="true" vertical="bottom" horizontal="start"  id="events" side="end" >
-    <ion-fab-button (click)="restaurant()" ><ion-icon name="restaurant-outline"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="fastFood()"> <ion-icon name="fast-food-outline"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="carWash()"><ion-icon name="car-outline"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="gasStation()"><ion-icon name="speedometer-outline"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="atms()"><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="restaurant()"title="Restaurants" ><ion-icon name="restaurant-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="fastFood()"title="Fast Foods"> <ion-icon name="fast-food-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="carWash()" title="Car Wash"><ion-icon name="car-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="gasStation()"title="Gas Stations" ><ion-icon name="speedometer-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="atms()" title="ATMS" ><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
 </ion-fab>
 
-<!--<ion-fab hidden="true" vertical="bottom" horizontal="center" side="end">
-  <ion-fab-button id="bttcl" (click)="landmark()" >create landmark</ion-fab-button>
-</ion-fab>-->
+<ion-fab hidden="true" vertical="bottom" horizontal="start" id="locateLandmark" side="end">
+  <ion-fab-button (click)="findCar()" title="Find My Car" color="primary" shape="round">My Car</ion-fab-button>
+</ion-fab>
 <ion-fab color="primary" shape="round" vertical="bottom" horizontal="center" side="end">
   <ion-fab-button (click)="search()" >Search</ion-fab-button>
 </ion-fab>

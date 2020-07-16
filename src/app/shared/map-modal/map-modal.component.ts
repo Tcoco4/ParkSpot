@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
@@ -6,17 +6,21 @@ import { google } from 'google-maps';
 import { map, combineAll } from 'rxjs/operators';
 import { ConstantPool, ThrowStmt } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
+//import { EventEmitter } from 'protractor';
 
 @Component({
-  selector: 'app-map-modal',
+  selector: 'app-map-modal', 
   templateUrl: './map-modal.component.html',
   styleUrls: ['./map-modal.component.scss'],
 })
 export class MapModalComponent implements OnInit,  AfterViewInit{
+ @Output() currCoords = new EventEmitter();
+ private hideLandmark: boolean =true;
   private isHidden: boolean = true;
   public google: google;
   public mapElem:any;
   public map;
+  public theDestination: any;
   public mappe;
   public holdThis;
   public globalMap;
@@ -27,20 +31,20 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   public  myMarker;
   public  myMarkerOptions;
   public markers =[];
+  public directions = [];
   public butt =-1;
   @ViewChild('map')  mapElementRef: ElementRef;
 
   constructor(
-    private modalCtrl: ModalController, 
+   // private modalCtrl: ModalController, 
     private renderer: Renderer2, 
-    private http: HttpClient,
+    //private http: HttpClient,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController 
-
     )
-    
     {
      this.holdThis=this;
+    // this.theDestination=null;
     }
   ngOnInit() {}
   //initialising Google maps
@@ -108,11 +112,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
     const googleModule = win.google; //refers to a not set varable. will be set after importing JS sdk
     
     if(googleModule && googleModule.maps){ //if js sdk has beem looaded before
-      console.log('THE MODULE HAS BEEN LOADED BEFORE');
       return Promise.resolve(googleModule.maps) //entry point to maps js sdk that exposes all funcs, methods we'll use
     }
     return new Promise((resolve, reject) => {
-      console.log('LOADEDING FOR THE FIRST TIME');
       const script = document.createElement('script');
       script.src = 'https://maps.googleapis.com/maps/api/js?v=quarterly&key='+environment.googleMapsAPIKey+'&libraries=places,geometry';
       script.async = true;
@@ -130,10 +132,35 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       }
     })
   }
+  CurrentCoords(){
+    var eeee=this;
+    var pos;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+          console.log("position: "+pos.lat+" "+pos.lng);
+          this.currCoords.emit(pos);
+          return pos;
+      });
+    }
+    //console.log("position: "+pos.lat+" "+pos.lng);
+   // return pos;
+  }
 
-  landmark()
+  locateLandmark()
   {
-    console.log("Landmark Created!");
+   // console.log("In map modale");
+    if(this.hideLandmark === true){
+      this.hideLandmark = false;
+      document.getElementById("locateLandmark").hidden = false;
+    }else if(this.hideLandmark === false){
+      this.hideLandmark = true;
+      document.getElementById("locateLandmark").hidden = true;
+
+    }
    /*var hhhe =this.map;
    var meppi=hhhe;
     var pos, myMarker, myMarkerOptions;
@@ -186,8 +213,9 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
           lng:  parseFloat(start+`${addition}`)
         }
         thisObi.origin=pos;
+        thisObi.theDestination=pos2;
         thisObi.destination=pos2;
-        console.log("We parking there");
+        //console.log("We parking there");
        // thisObi.landmark(thisObi.destination);
             
         var ranNum = Math.floor(Math.random() *(1+ 125-49))+ 49;         
@@ -249,15 +277,15 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
               );
           }
         });
+        
       });
+    this.theDestination=thisObi.theDestination;
     } 
   }
 
    calculateAndRenderDirections(origin, destination){
       var nyika =this.map;
-      console.log("Possible how "+nyika);
-      var thisObi=this;
-      console.log("googe "+google);
+      var thisObi=this;    
       var directionsService = new google.maps.DirectionsService(),
           directionsDisplay = new google.maps.DirectionsRenderer(),
           request = 
@@ -269,7 +297,12 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
         directionsDisplay.setMap(nyika);
         directionsService.route(request, (result, status) =>{
         if(status == 'OK'){
-            directionsDisplay.setDirections(result);
+          console.log("butt value "+this.butt);
+          directionsDisplay.setDirections(result); 
+            setTimeout( ()=>{
+              directionsDisplay.setMap(null);
+            }, 20000)
+            
         }
       })
   }
@@ -320,7 +353,6 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   restaurant()
   {
       var hhhe =this.map;
-      console.log("meeep +"+hhhe);
       var eeee=this;
       var request,service;
 
@@ -381,6 +413,7 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
   }
   atms()
   {
+    console.log("We are within");
     var hhhe =this.map;
     var eeee=this;
     var request,service;
@@ -466,4 +499,39 @@ export class MapModalComponent implements OnInit,  AfterViewInit{
       eeee.clearArray(eeee.markers);
     }
   }
+  findCar(){
+    var addition:string|number;
+    var start:string|number;
+    var thisObi=this;
+    var pos;
+    
+    if(this.theDestination==null){
+      thisObi.butt=-1;
+      console.log("Car not parked yet!");   //To display alert here
+    }else
+    {
+      if(thisObi.butt != 1){
+        thisObi.butt =1;
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position) {
+              pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+            var locaNum: string| number = Math.floor(Math.random() *(1+ 49999-22000))+ 22000;
+            start =28.2;
+            addition=locaNum; 
+            var res:number = start+addition;
+            thisObi.origin=pos;
+            //thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.destination)
+            thisObi.calculateAndRenderDirections(thisObi.origin, thisObi.theDestination)
+          })
+        }
+      }else{
+        console.log("remove path");
+        thisObi.butt=-1;
+      }
+    }
+}
+
 }

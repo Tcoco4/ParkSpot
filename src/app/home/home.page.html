@@ -1,46 +1,36 @@
+
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons>
+  <ion-toolbar >
+   <!-- <ion-buttons>
       <ion-menu-button menu="m2"></ion-menu-button>
-    </ion-buttons>    
-    <ion-title>
-      ParkSpot
+    </ion-buttons> -->   
+    <ion-title class="ion-text-center" >
+     <h1>ParkSpot</h1>
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large" class="ion-text-center">ParkSpot</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content [fullscreen]="true" class="background">
   <ion-grid>
     <ion-row size="12">
       <div id="container"> 
-        <ion-buttons class="ion-text-center">
           <ion-button (click)="onSignUp()">
-            Sign up
+            <h3  class="ion-text-center" id="useAcc">Sign up</h3>
           </ion-button>
-        </ion-buttons>
-        <ion-buttons>
-          <ion-button (click)="onWithoutAccount()">
-            Use without an account
-          </ion-button>
-        </ion-buttons>
+          <br>
+         <a href="/start"><!-- <ion-button (click)="onWithoutAccount()">-->
+        <h1 id="noAcc">Use without an account</h1></a>
+       
       </div>
     </ion-row>
   </ion-grid>
   </ion-content>
 
-  <ion-footer class="ion-no-border">
+  <!--<ion-footer class="ion-no-border">
     <ion-toolbar>
       <p>
-        By installing or using Park Spot, you agree to the..
-        ParkSpot Customer Agreement, ParkSpot Service Terms, and ParkSpot Privacy Notice.
+        By using Park Spot, you agree to the ParkSpot Customer Agreement, ParkSpot Service Terms, and ParkSpot Privacy Notice.
         If you already have an ParkSpot Customer Agreement, you agree that the 
         terms of that agreement govern your download and use of this product.
       </p> 
     </ion-toolbar>
-  </ion-footer>
+  </ion-footer>-->
