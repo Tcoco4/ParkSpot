@@ -11,7 +11,7 @@ sauce_connect:
 install:
     - npm install
     - npm install -g @ionic/cli
-    before_script:
+before_script:
   - sleep 50
 script: 
  - npm run test
