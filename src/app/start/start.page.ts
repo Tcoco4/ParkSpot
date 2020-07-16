@@ -10,6 +10,9 @@ import { LocationPickerComponent } from '../shared/pickers/location-picker/locat
 })
 export class StartPage implements OnInit {
 
+  useAcc: boolean = false;
+  noAcc: boolean = false;
+  
   constructor(private shared: SharedModule, private locationCo: LocationPickerComponent) { }
 
   ngOnInit() {
