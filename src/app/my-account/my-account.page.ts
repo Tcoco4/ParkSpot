@@ -10,7 +10,7 @@ import { LocationPickerComponent } from '../shared/pickers/location-picker/locat
 })
 export class MyAccountPage implements OnInit {
 
-  constructor(private alertCtrl: AlertController) { }
+  constructor(private alertCtrl: AlertController, private modal: ModalController) { }
 
   ngOnInit() {
   }
@@ -32,14 +32,6 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     }); 
   }
- /* <embed
-  src="COS730_Assignment_3.pdf"
-  type="application/pdf"
-  scrolling="auto"
-  height="100%"
-  width="100%"
-           >
-    </embed>*/
   help(){
       this.alertCtrl.create({
         header: 'Speak to Consultant',
@@ -58,15 +50,19 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     });
   }
-   
   userManual(){
-    /*this.modal.create({
-      component: LocationPickerComponent
-      }).then(modalEl =>{
-        modalEl.present();
-    });*/
+    this.modal.create({component: LocationPickerComponent})
+    .then(modalEl =>{
+      modalEl.onDidDismiss().then(modalData =>{
+       
+      });
+      modalEl.present();//THIS OPENS MODAL
+    })
   }
 
+  documentation(){
+    
+  }
   Settings(){
     this.alertCtrl.create({
       header: 'Language-settings',
