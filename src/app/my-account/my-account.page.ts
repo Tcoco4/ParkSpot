@@ -10,7 +10,7 @@ import { LocationPickerComponent } from '../shared/pickers/location-picker/locat
 })
 export class MyAccountPage implements OnInit {
 
-  constructor(private alertCtrl: AlertController, private modal: ModalController) { }
+  constructor(private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
@@ -60,11 +60,11 @@ export class MyAccountPage implements OnInit {
   }
    
   userManual(){
-    this.modal.create({
+    /*this.modal.create({
       component: LocationPickerComponent
       }).then(modalEl =>{
         modalEl.present();
-    });
+    });*/
   }
 
   Settings(){

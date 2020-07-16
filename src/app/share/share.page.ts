@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SharePage implements OnInit {
  public pos: any;
-  constructor(private mapModal: MapModalComponent, private router: Router) { }
+  constructor(private mapModal: MapModalComponent) { }
 
   ngOnInit() {
     
