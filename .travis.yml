@@ -14,4 +14,4 @@ install:
 script: 
  - npm run test
 after_success:
- - exit
+- pkill node
