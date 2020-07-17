@@ -10,25 +10,22 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="background">
-  <div id="hey">
-  
   <ion-grid>
     <ion-row size="12">
       <div id="container"> 
           <ion-button (click)="onSignUp()">
-            <h1  class="ion-text-center">Sign up</h1>
+            <h3  class="ion-text-center" id="useAcc">Sign up</h3>
           </ion-button>
           <br>
-         <a href="/start"><!-- <ion-button (click)="onWithoutAccount()">-->
-        <h1>Use without an account</h1></a>
+       <!-- <a href="/start">--><!-- <ion-button (click)="onWithoutAccount()">-->
+          <a (click)="onWithoutAccount();"><h1 id="noAcc">Use without an account</h1></a>
        
       </div>
     </ion-row>
   </ion-grid>
-  </div>
   </ion-content>
 
-  <ion-footer class="ion-no-border">
+  <!--<ion-footer class="ion-no-border">
     <ion-toolbar>
       <p>
         By using Park Spot, you agree to the ParkSpot Customer Agreement, ParkSpot Service Terms, and ParkSpot Privacy Notice.
@@ -36,4 +33,4 @@
         terms of that agreement govern your download and use of this product.
       </p> 
     </ion-toolbar>
-  </ion-footer>
+  </ion-footer>-->

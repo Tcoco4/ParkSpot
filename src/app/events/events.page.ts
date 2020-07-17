@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController,ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-events',
@@ -7,28 +8,100 @@ import { Router } from '@angular/router';
   styleUrls: ['./events.page.scss'],
 })
 export class EventsPage implements OnInit {
-  
-  constructor(private router: Router) { }
+  private modalCtrl: ModalController;
+  //private alertCtrl: AlertController;
+  constructor(private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
 
-  displayRestaurants(){
-    /*this.router.navigateByUrl('/start');
-    this.getGoogleMaps()
-    .then(googleMaps =>{
-      const mapEl =  this.mapElementRef.nativeElement;
-      const map = new googleMaps.Map(mapEl, {
-        center: {lat:-25.7516134292926 , lng:28.233034014701847},
-        zoom: 16
-      });
-        var request = {
-        location: pos, //new google.maps.LatLng(-33.867646,151.243446),
-        radius: 8047,
-        types: ['restaurant']
+  help(){
+    this.alertCtrl.create({
+      header: 'Speak to Consultant',
+      message: 'Dial  0 800 123 4567',
+      buttons: [
+        {
+          text: 'Call ',
+          role: 'accept'
+        },
+        {
+          text: 'Cancel ',
+          role: 'cancel'
         }
-        var service = new googleMaps.places.PlacesService(map);
-      service.nearbySearch(request,callback);
-    `//['atm','car-wash','gas-station','restaurant']`*/
+    ]
+  }).then(alertEl =>{
+      alertEl.present();
+  });
+}
+Settings(){
+  this.alertCtrl.create({
+    header: 'Language-settings',
+    message: '',
+    buttons: [
+      {
+        text: 'Afrikaans ',
+        role: 'cancel'
+      },
+      {
+        text: 'Engish ',
+        role: 'accept'
+      }
+  ]
+}).then(alertEl =>{
+    alertEl.present();
+});
+}
+/*userManual(){
+  this.modal.create({component: LocationPickerComponent})
+  .then(modalEl =>{
+    modalEl.onDidDismiss().then(modalData =>{
+    
+    });
+    modalEl.present();//THIS OPENS MODAL
+  })
+}*/
+
+V1(){
+  var file="../../../assets/Park_Spot_V1.pdf";
+  window.open(file);
+}
+V2(){
+  var file="../../../assets/Park_Spot_V2.pdf";
+  window.open(file);
+}
+
+user(){
+  var file="../../../assets/ParkSpot_User_Manual.pdf";
+  window.open(file);
+
+}
+documentation(){
+  this.alertCtrl.create({
+    header: 'ParkSpot Documentaton',
+    buttons: [
+      {
+        text: 'User Manual ',
+        handler: () =>{
+          this.user();
+        }
+      },
+      {
+        text: 'ParkSpot_V1 ',
+        handler: () =>{
+          this.V1();
+        }
+      },
+      {
+        text: 'ParkSpot_V2 ',
+        handler: () =>{
+          this.V2();
+        }
+      }
+  ]
+}).then(alertEl =>{
+    alertEl.present();
+});
+} displayRestaurants(){
+
   }
 }

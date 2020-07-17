@@ -27,15 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'events',
-    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule),
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
   },
   {
     path: 'my-account',
     loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule),
     canLoad: [AuthGuard]
   }
-  
 ];
 
 @NgModule({
