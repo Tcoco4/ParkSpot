@@ -15,7 +15,7 @@ export class SharePage implements OnInit {
   ngOnInit() {
     
   }
-    currentCoordinates(): any{
+    currentCoordinates(){
       var bes=this;
       var a;
       var href;
