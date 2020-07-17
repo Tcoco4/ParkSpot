@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, AlertController, LoadingController } from '@ionic/angular';
+import { IonicModule, AlertController, LoadingController, ModalController } from '@ionic/angular';
 
 import { MyAccountPage } from './my-account.page';
 import { MapModalComponent } from '../shared/map-modal/map-modal.component';
@@ -50,6 +50,32 @@ describe('MyAccountPage Tests', () => {
   it('Settings method callable', () => {
     spy = spyOn(myAcc, 'Settings');
     myAcc.Settings();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('Help method callable', () => {
+    spy = spyOn(myAcc, 'help');
+    myAcc.help();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('Documentation method callable', () => {
+    spy = spyOn(myAcc, 'documentation');
+    myAcc.documentation();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('Display ParkSpot_V1 method callable', () => {
+    spy = spyOn(myAcc, 'V1');
+    myAcc.V1();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('Display ParkSpot_V2 method callable', () => {
+    spy = spyOn(myAcc, 'V2');
+    myAcc.V2();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('Display User manual method callable', () => {
+    spy = spyOn(myAcc, 'user');
+    myAcc.user();
     expect(spy).toHaveBeenCalled();
   });
 });
