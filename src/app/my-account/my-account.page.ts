@@ -10,7 +10,7 @@ import { LocationPickerComponent } from '../shared/pickers/location-picker/locat
 })
 export class MyAccountPage implements OnInit {
 
-  constructor(private alertCtrl: AlertController, private modal: ModalController) { }
+  constructor(private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
@@ -50,16 +50,6 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     });
   }
-  userManual(){
-    this.modal.create({component: LocationPickerComponent})
-    .then(modalEl =>{
-      modalEl.onDidDismiss().then(modalData =>{
-      
-      });
-      modalEl.present();//THIS OPENS MODAL
-    })
-  }
-
   V1(){
     var file="../../../assets/Park_Spot_V1.pdf";
     window.open(file);
@@ -68,7 +58,6 @@ export class MyAccountPage implements OnInit {
     var file="../../../assets/Park_Spot_V2.pdf";
     window.open(file);
   }
-
   user(){
     var file="../../../assets/ParkSpot_User_Manual.pdf";
     window.open(file);
