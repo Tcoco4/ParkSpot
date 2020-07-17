@@ -11,7 +11,8 @@ import { map } from 'rxjs/operators';
 })
 export class LocationPickerComponent implements OnInit {
  private alertCtrl: AlertController;
-  constructor(private modalCtrl: ModalController, private http: HttpClient) { }
+ private modalCtrl: ModalController;
+  constructor( private http: HttpClient) { }
 
   ngOnInit() {}
   onPickLocation(){
