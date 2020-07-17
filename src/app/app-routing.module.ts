@@ -27,8 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'events',
-    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule),
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
   },
   {
     path: 'my-account',
