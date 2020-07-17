@@ -1,39 +1,37 @@
 <ion-app>
-  <ion-menu side="start" menu="m1">
+  <ion-menu side="start" menuId="m1" content="main" disabled="true">
     <ion-header>
       <ion-toolbar>
         <ion-title>ParkSpot</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content>
       <ion-list>
-        <ion-menu-toggle  menuId-="haveAccount" content-id="m1" >
+        <ion-menu-toggle  menu="m1" >
         <ion-item lines="none" (click)="locateLandmark()">
           <ion-icon name="pin" slot="start"></ion-icon>
           <ion-label>Create Landmark</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle menu="m1">
         <ion-item lines="none"  (click)="displayEvents()">
-
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
           <ion-label>Nearby Events</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/share" >
           <ion-icon name="share-social-outline" slot="start"></ion-icon>
           <ion-label>Share Location</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/my-account">
           <ion-icon name="person-outline" slot="start"></ion-icon>
           <ion-label>My Account</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/home">
           <ion-icon name="exit-outline" slot="start"></ion-icon>
           <ion-label>Signout</ion-label>
@@ -43,7 +41,7 @@
     </ion-content>
   </ion-menu>
 
-  <!--<ion-menu  side="start" content="noAccount">
+  <ion-menu  side="start" menuId="m2" content="main" disabled="false">
     <ion-header>
       <ion-toolbar>
         <ion-title>ParkSpot</ion-title>
@@ -77,7 +75,7 @@
         </ion-grid>
       </ion-list>
     </ion-content>
-  </ion-menu>-->
+  </ion-menu>
   
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>
