@@ -34,6 +34,11 @@ const routes: Routes = [
     path: 'my-account',
     loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'location-picker',
+    loadChildren: () => import('./shared/shared.module').then( m => m.SharedModule),
+    canLoad: [AuthGuard]
   }
   
 ];

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SharePageRoutingModule } from './share-routing.module';
 
 import { SharePage } from './share.page';
+import { LocationPickerComponent } from '../shared/pickers/location-picker/location-picker.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SharePage } from './share.page';
     IonicModule,
     SharePageRoutingModule
   ],
-  declarations: [SharePage]
+  declarations: [SharePage, LocationPickerComponent]
 })
 export class SharePageModule {}

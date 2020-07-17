@@ -54,14 +54,52 @@ export class MyAccountPage implements OnInit {
     this.modal.create({component: LocationPickerComponent})
     .then(modalEl =>{
       modalEl.onDidDismiss().then(modalData =>{
-       
+      
       });
       modalEl.present();//THIS OPENS MODAL
     })
   }
 
+  V1(){
+    var file="../../../assets/Park_Spot_V1.pdf";
+    window.open(file);
+  }
+  V2(){
+    var file="../../../assets/Park_Spot_V2.pdf";
+    window.open(file);
+  }
+
+  user(){
+    var file="../../../assets/ParkSpot_User_Manual.pdf";
+    window.open(file);
+
+  }
   documentation(){
-    
+    this.alertCtrl.create({
+      header: 'ParkSpot Documentaton',
+      buttons: [
+        {
+          text: 'User Manual ',
+          handler: () =>{
+            this.user();
+          }
+        },
+        {
+          text: 'ParkSpot_V1 ',
+          handler: () =>{
+            this.V1();
+          }
+        },
+        {
+          text: 'ParkSpot_V2 ',
+          handler: () =>{
+            this.V2();
+          }
+        }
+    ]
+  }).then(alertEl =>{
+      alertEl.present();
+  });
   }
   Settings(){
     this.alertCtrl.create({
