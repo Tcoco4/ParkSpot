@@ -32,14 +32,6 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     }); 
   }
- /* <embed
-  src="COS730_Assignment_3.pdf"
-  type="application/pdf"
-  scrolling="auto"
-  height="100%"
-  width="100%"
-           >
-    </embed>*/
   help(){
       this.alertCtrl.create({
         header: 'Speak to Consultant',
@@ -58,15 +50,46 @@ export class MyAccountPage implements OnInit {
         alertEl.present();
     });
   }
-   
-  userManual(){
-    /*this.modal.create({
-      component: LocationPickerComponent
-      }).then(modalEl =>{
-        modalEl.present();
-    });*/
+  V1(){
+    var file="../../../assets/Park_Spot_V1.pdf";
+    window.open(file);
   }
+  V2(){
+    var file="../../../assets/Park_Spot_V2.pdf";
+    window.open(file);
+  }
+  user(){
+    var file="../../../assets/ParkSpot_User_Manual.pdf";
+    window.open(file);
 
+  }
+  documentation(){
+    this.alertCtrl.create({
+      header: 'ParkSpot Documentaton',
+      buttons: [
+        {
+          text: 'User Manual ',
+          handler: () =>{
+            this.user();
+          }
+        },
+        {
+          text: 'ParkSpot_V1 ',
+          handler: () =>{
+            this.V1();
+          }
+        },
+        {
+          text: 'ParkSpot_V2 ',
+          handler: () =>{
+            this.V2();
+          }
+        }
+    ]
+  }).then(alertEl =>{
+      alertEl.present();
+  });
+  }
   Settings(){
     this.alertCtrl.create({
       header: 'Language-settings',

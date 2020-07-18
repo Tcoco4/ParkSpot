@@ -78,5 +78,39 @@ describe('MapModalComponent Tests', () => {
     map.calculateAndRenderDirections(ori,des);
     expect(spy).toHaveBeenCalled();
   });
-  
+
+  it('Display Restaurants on Map', () => {
+    spy = spyOn(map, 'restaurant');
+    map.restaurant();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('Display Fast Food Markers on Map', () => {
+    spy = spyOn(map, 'fastFood');
+    map.fastFood();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('Display GasStations on Map', () => {
+    spy = spyOn(map, 'gasStation');
+    map.gasStation();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('Display ATMS on Map', () => {
+    spy = spyOn(map, 'atms');
+    map.atms();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('Display Car-washes on Map', () => {
+    spy = spyOn(map, 'carWash');
+    map.carWash();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('Locate Landmark', () => {
+    spy = spyOn(map, 'findCar');
+    map.findCar();
+    expect(spy).toHaveBeenCalled();
+  });
 });

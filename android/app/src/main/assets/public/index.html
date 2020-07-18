@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="google-signin-client_id" content="711674266047-1ho6n2f3531f0tjkde86n0kiagusf2i0.apps.googleusercontent.com">
+  <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">-->
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+    var googleUser = {};
+    var startApp = function() {
+      gapi.load('auth2', function(){
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        auth2 = gapi.auth2.init(
+            {
+          client_id: '711674266047-1ho6n2f3531f0tjkde86n0kiagusf2i0.apps.googleusercontent.com',
+          cookiepolicy: 'none',
+          // Request scopes in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+        }
+        );
+        attachSignin(document.getElementById('customBtn'));
+      });
+    };
+  
+    function attachSignin(element) {
+      console.log(element.id);
+      auth2.attachClickHandler(element, {},
+          function(googleUser) {
+            document.getElementById('name').innerText = "Signed in: " +
+                googleUser.getBasicProfile().getName();
+              //  googleUser.getBasicProfile().getImageUrl();
+                googleUser.getBasicProfile().getEmail();
+          }, function(error) {
+            alert(JSON.stringify(error, undefined, 2));
+          });
+    }
+    </script>
+  </style>
+
+  <meta charset="utf-8"/>
+  <title>ParkSpot</title>
+
+  <base href="/"/>
+
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png"/>
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <!--<link rel="manifest" href="manifest.webmanifest">-->
+  <meta name="theme-color" content="#1976d2">
+</head>
+
+<body>
+ <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlyNg14FO3-LrDrstaxNnyoVqOFS4aen0&callback=initMap"
+  type="text/javascript"></script>-->
+  <!--<app-root></app-root>-->
+
+  <!--<div id="gSignInWrapper">
+    <span class="label">Sign in with:</span>
+    <div id="customBtn" class="customGPlusSignIn">
+      <span class="icon"></span>
+      <span class="buttonText">Google</span>
+    </div>
+  </div>
+  <div id="name"></div>
+  <script>startApp();</script>-->
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<script src="runtime-es2015.js" type="module"></script><script src="runtime-es5.js" nomodule defer></script><script src="polyfills-es5.js" nomodule defer></script><script src="polyfills-es2015.js" type="module"></script><script src="styles-es2015.js" type="module"></script><script src="styles-es5.js" nomodule defer></script><script src="vendor-es2015.js" type="module"></script><script src="vendor-es5.js" nomodule defer></script><script src="main-es2015.js" type="module"></script><script src="main-es5.js" nomodule defer></script></body>
+
+</html>
