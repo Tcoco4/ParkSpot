@@ -49,16 +49,14 @@ describe('SharePage Tests', () => {
    share.currentCoordinates();
    expect(spy).toHaveBeenCalled();
   });
-
-  /*it('Testing Landmark location via email', () => {
+  it('Testing Share Landmark location via email', () => {
     spy = spyOn(share, 'landmarkLocation');
     share.landmarkLocation();
     expect(spy).toHaveBeenCalled();
    });
-  
-   it('Testing Event location via email', () => {
+  it('Testing Share Event location via email', () => {
     spy = spyOn(share, 'eventLocation');
     share.eventLocation();
     expect(spy).toHaveBeenCalled();
-   });*/
+   });
 });

@@ -1,67 +1,53 @@
 <ion-app>
-  <ion-menu side="start" menu="m1">
+  <ion-menu side="start" menuId="m1" content="main" disabled="true">
     <ion-header>
       <ion-toolbar>
         <ion-title>ParkSpot</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content>
       <ion-list>
-        <ion-menu-toggle  menuId="m1" >
+        <ion-menu-toggle  menu="m1" >
         <ion-item lines="none" (click)="locateLandmark()">
           <ion-icon name="pin" slot="start"></ion-icon>
           <ion-label>Create Landmark</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <!--<ion-menu-toggle>
-        <ion-item lines="none">
-          <ion-icon name="pin" slot="start"></ion-icon>
-          <ion-label>Delete Landmark</ion-label>
-        </ion-item>
-      </ion-menu-toggle>-->
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle menu="m1">
         <ion-item lines="none"  (click)="displayEvents()">
-       <!-- <ion-item lines="none" routerLink="/events">-->
           <ion-icon name="aperture-outline" slot="start"></ion-icon>
           <ion-label>Nearby Events</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/share" >
           <ion-icon name="share-social-outline" slot="start"></ion-icon>
           <ion-label>Share Location</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/my-account">
           <ion-icon name="person-outline" slot="start"></ion-icon>
           <ion-label>My Account</ion-label>
+          <ion-badge color="danger" slot="end">1</ion-badge>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menuId="m1">
+      <ion-menu-toggle  menu="m1">
         <ion-item lines="none" routerLink="/home">
           <ion-icon name="exit-outline" slot="start"></ion-icon>
           <ion-label>Signout</ion-label>
         </ion-item>
       </ion-menu-toggle>
-    <!--  <ion-menu-toggle menuId="m1">
-        <ion-item lines="none" routerLink="/events">
-          <ion-icon name="exit-outline" slot="start"></ion-icon>
-          <ion-label>Events</ion-label>
-        </ion-item>
-      </ion-menu-toggle>-->
       </ion-list>
     </ion-content>
   </ion-menu>
 
-  <!--<ion-menu  side="start" menuId="m2">
+  <ion-menu  side="start" menuId="m2" content="main" disabled="false">
     <ion-header>
       <ion-toolbar>
         <ion-title>ParkSpot</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content>
       <ion-list>
         <ion-menu-toggle>
@@ -76,21 +62,15 @@
           <ion-label>Create Account?</ion-label>
         </ion-item>
       </ion-menu-toggle>
-        <ion-grid>
-          <ion-menu-toggle menuId="m2">
-          <ion-row>
-            <ion-col>
-              <ion-item (click)="setting()">
-                <ion-icon name="settings-outline"></ion-icon>
-                <ion-label>Settings</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-menu-toggle>
-        </ion-grid>
+      <ion-menu-toggle menuId="m2">
+        <ion-item lines="none" routerLink="/events">
+          <ion-icon name="help-outline" slot="start"></ion-icon>
+          <ion-label>Get Some help</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
       </ion-list>
     </ion-content>
-  </ion-menu>-->
+  </ion-menu>
   
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>
